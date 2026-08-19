@@ -1,0 +1,33 @@
+{
+  "name": "nocturnidad-segura-fv",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "firebase-admin": "^12.3.0",
+    "zod": "^3.23.8",
+    "lucide-react": "^0.417.0",
+    "@marsidev/react-turnstile": "^1.0.0",
+    "react-hook-form": "^7.52.1",
+    "@hookform/resolvers": "^3.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5",
+    "tailwindcss": "^3.4.6",
+    "postcss": "^8",
+    "autoprefixer": "^10",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5"
+  }
+}

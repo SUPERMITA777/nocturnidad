@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Bloquear TODA lectura/escritura directa desde el cliente.
+    // Todas las operaciones se realizan EXCLUSIVAMENTE via firebase-admin en el servidor.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
