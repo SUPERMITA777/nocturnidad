@@ -22,7 +22,10 @@ export async function getProyectoLey(): Promise<ProyectoLey> {
       const data = docSnap.data();
       const parsed = proyectoLeySchema.safeParse(data);
       if (parsed.success) {
-        return parsed.data;
+        // Asegurar que sea un objeto plano serializable para Client Components (eliminar clases Timestamp)
+        const cleanData = { ...parsed.data };
+        delete cleanData.ultimaActualizacion;
+        return JSON.parse(JSON.stringify(cleanData));
       }
     }
 
@@ -36,10 +39,10 @@ export async function getProyectoLey(): Promise<ProyectoLey> {
       console.warn("No se pudo persistir el default de proyecto_ley en Firestore:", e);
     }
 
-    return DEFAULT_PROYECTO_LEY;
+    return JSON.parse(JSON.stringify(DEFAULT_PROYECTO_LEY));
   } catch (error) {
     console.error("Error al obtener proyecto_ley de Firestore:", error);
-    return DEFAULT_PROYECTO_LEY;
+    return JSON.parse(JSON.stringify(DEFAULT_PROYECTO_LEY));
   }
 }
 
