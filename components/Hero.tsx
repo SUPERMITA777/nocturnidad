@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, FileText, PenLine, Users } from "lucide-react";
+import { ArrowDown, FileText, PenLine, Users, FileCheck } from "lucide-react";
 
 interface HeroProps {
   initialCount: number;
@@ -77,9 +77,9 @@ export default function Hero({ initialCount }: HeroProps) {
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
         {/* Badge institucional */}
-        <div className="inline-flex items-center gap-2 bg-primary-950/60 border border-primary-800/50 text-primary-300 text-xs font-medium px-4 py-2 rounded-full mb-8 animate-fade-in-up">
+        <div className="inline-flex items-center gap-2 bg-primary-950/60 border border-primary-800/50 text-primary-300 text-xs font-medium px-4 py-2 rounded-full mb-6 animate-fade-in-up">
           <span className="w-2 h-2 rounded-full bg-primary-400 animate-pulse" />
-          Proyecto de Reforma Legislativa — HCD Florencio Varela
+          Iniciativa Popular de Participación Ciudadana — HCD Florencio Varela
         </div>
 
         {/* Título Principal */}
@@ -95,15 +95,29 @@ export default function Hero({ initialCount }: HeroProps) {
           </span>
         </h1>
 
-        {/* Subtítulo */}
-        <p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-10 animate-fade-in-up animate-delay-200">
-          Hacia una reforma integral de la{" "}
-          <span className="text-slate-200 font-medium">
-            Ordenanza N.º 10.329/23, Dec. 1.111/23 y Ord. 442/77 (Art. 37)
-          </span>{" "}
-          para terminar con la clandestinidad, cuidar a los jóvenes y formalizar
-          la actividad comercial y cultural con trabajo varelense.
+        {/* Bajada explicativa */}
+        <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto mb-6 animate-fade-in-up animate-delay-200">
+          Iniciativa ciudadana para reformar las{" "}
+          <strong className="text-white font-semibold">Ordenanzas N.º 10.329/23 y N.º 442/77</strong>.
+          Proponemos terminar con la clandestinidad, cuidar a los jóvenes, garantizar el descanso vecinal
+          y defender el empleo formal de gastronómicos, técnicos y artistas.
         </p>
+
+        {/* Badges Normativos Visibles */}
+        <div className="flex flex-wrap justify-center gap-2.5 mb-10 animate-fade-in-up animate-delay-200">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-950/80 border border-primary-700/60 rounded-lg text-primary-300 text-xs font-semibold shadow-sm">
+            <FileCheck className="w-3.5 h-3.5" />
+            Reforma Ord. 10.329/23
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-950/80 border border-amber-700/60 rounded-lg text-amber-300 text-xs font-semibold shadow-sm">
+            <FileCheck className="w-3.5 h-3.5" />
+            Modificación Código de Faltas 442/77
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-950/80 border border-emerald-700/60 rounded-lg text-emerald-300 text-xs font-semibold shadow-sm">
+            <FileCheck className="w-3.5 h-3.5" />
+            Adecuación Ley 14.050
+          </span>
+        </div>
 
         {/* Botones de Acción */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14 animate-fade-in-up animate-delay-300">

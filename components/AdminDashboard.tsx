@@ -28,6 +28,7 @@ import {
   Users,
   Eye,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -225,6 +226,13 @@ export default function AdminDashboard() {
           </div>
 
           <div className="flex items-center gap-3">
+            <Link
+              href="/admin/proyecto"
+              className="btn-primary text-xs px-3 py-2 flex items-center gap-1.5"
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Editar Articulado (22 Arts)</span>
+            </Link>
             <a
               href="/api/admin/export"
               target="_blank"

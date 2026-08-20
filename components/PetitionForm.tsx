@@ -430,19 +430,14 @@ export default function PetitionForm() {
                 </div>
               </div>
               <div>
-                <p className="text-slate-200 text-sm font-medium">
-                  Adhesión y Consentimiento Legal{" "}
-                  <span className="text-red-400">*</span>
+                <p className="text-slate-200 text-sm font-semibold">
+                  Declaración Jurada y Adhesión Ciudadana <span className="text-red-400">*</span>
                 </p>
-                <p className="text-slate-500 text-xs mt-1 leading-relaxed">
-                  Declaro que soy mayor de edad, vecino/a del Partido de
-                  Florencio Varela y que los datos proporcionados son
-                  verdaderos. Presto mi consentimiento para que esta adhesión
-                  sea presentada ante la Mesa de Entradas del Honorable Concejo
-                  Deliberante.
+                <p className="text-slate-300 text-xs mt-1.5 leading-relaxed bg-slate-800/40 p-3 rounded-lg border border-slate-700/50">
+                  "Doy mi conformidad para que mis datos integren el petitorio y respaldo ciudadano al Proyecto de Ordenanza Modificatoria de las Ordenanzas N.º 10.329/23 y N.º 442/77 a presentarse ante el Honorable Concejo Deliberante de Florencio Varela."
                 </p>
                 {errors.consentimientoLegal && (
-                  <p className="error-msg">
+                  <p className="error-msg mt-1">
                     {errors.consentimientoLegal.message}
                   </p>
                 )}
