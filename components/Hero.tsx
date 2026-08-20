@@ -97,12 +97,12 @@ export default function Hero({ initialCount }: HeroProps) {
 
         {/* Subtítulo */}
         <p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-10 animate-fade-in-up animate-delay-200">
-          Hacia una reforma del{" "}
-          <span className="text-slate-300 font-medium">
-            Código de Faltas (Ord. 442/77)
+          Hacia una reforma integral de la{" "}
+          <span className="text-slate-200 font-medium">
+            Ordenanza N.º 10.329/23, Dec. 1.111/23 y Ord. 442/77 (Art. 37)
           </span>{" "}
           para terminar con la clandestinidad, cuidar a los jóvenes y formalizar
-          la actividad comercial y cultural.
+          la actividad comercial y cultural con trabajo varelense.
         </p>
 
         {/* Botones de Acción */}

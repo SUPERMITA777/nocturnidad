@@ -11,7 +11,10 @@ import {
   AlertTriangle,
   CheckCircle2,
   Printer,
+  FileCheck,
+  FolderOpen,
 } from "lucide-react";
+import type { ProyectoLey } from "@/lib/proyecto-schema";
 
 type TabKey = "visto" | "considerando" | "articulado" | "imprimible";
 
@@ -34,228 +37,7 @@ const sections: { key: TabKey; label: string; icon: React.ReactNode }[] = [
   },
 ];
 
-const content: Record<TabKey, React.ReactNode> = {
-  visto: (
-    <div className="space-y-4 text-slate-300 leading-relaxed">
-      <p>
-        <strong className="text-white">El Honorable Concejo Deliberante</strong>{" "}
-        del Partido de Florencio Varela, en uso de sus atribuciones
-        constitucionales y legales;
-      </p>
-      <div className="space-y-3">
-        <div className="flex gap-3 p-4 bg-slate-800/60 rounded-xl border-l-4 border-primary-600">
-          <CheckCircle2 className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="font-semibold text-white text-sm">Ordenanza 442/77</p>
-            <p className="text-slate-400 text-sm mt-1">
-              El Código de Faltas Municipal vigente, sancionado en 1977, que
-              regula los horarios de funcionamiento de establecimientos
-              nocturnos y cuya rigidez ha quedado desfasada respecto de la
-              realidad social, cultural y económica actual del Partido.
-            </p>
-          </div>
-        </div>
-        <div className="flex gap-3 p-4 bg-slate-800/60 rounded-xl border-l-4 border-accent-600">
-          <CheckCircle2 className="w-5 h-5 text-accent-400 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="font-semibold text-white text-sm">
-              Ley Provincial 14.050 (Buenos Aires)
-            </p>
-            <p className="text-slate-400 text-sm mt-1">
-              Marco provincial que habilita a los municipios a dictar normas
-              específicas de habilitación y control de actividades nocturnas,
-              culturales y gastronómicas en el ámbito de su competencia.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-
-  considerando: (
-    <div className="space-y-4">
-      {[
-        {
-          title: "Migración a la clandestinidad",
-          body: "La rigidez normativa de la Ord. 442/77 ha provocado el cierre masivo de locales habilitados y la proliferación de eventos en quintas, galpones y predios privados sin ningún tipo de habilitación, inspección ni control municipal, fuera del alcance de la política pública.",
-          color: "red",
-        },
-        {
-          title: "Riesgos de seguridad y salud",
-          body: "Los espacios clandestinos carecen de salidas de emergencia adecuadas, sistemas contra incendios, servicios sanitarios en condiciones, personal de seguridad habilitado y protocolos de actuación ante accidentes o situaciones críticas, poniendo en riesgo la vida de cientos de jóvenes.",
-          color: "orange",
-        },
-        {
-          title: "Falta de control de acceso a menores",
-          body: "Sin un marco regulatorio aplicado en espacios verificados, el control de ingreso de personas menores de edad resulta inexistente, exponiéndolas a situaciones de riesgo vinculadas al consumo de alcohol y sustancias psicoactivas.",
-          color: "yellow",
-        },
-        {
-          title: "Pérdida de empleo local",
-          body: "El desplazamiento de la actividad nocturna hacia la informalidad ha generado la pérdida de cientos de puestos de trabajo registrados en el Partido: mozos, barmans, técnicos de sonido y luz, productores, artistas locales y personal de seguridad habilitado.",
-          color: "blue",
-        },
-      ].map((item) => (
-        <div
-          key={item.title}
-          className={`flex gap-3 p-4 bg-slate-800/60 rounded-xl border-l-4 ${
-            item.color === "red"
-              ? "border-red-600"
-              : item.color === "orange"
-              ? "border-orange-500"
-              : item.color === "yellow"
-              ? "border-yellow-500"
-              : "border-blue-500"
-          }`}
-        >
-          <AlertTriangle
-            className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
-              item.color === "red"
-                ? "text-red-400"
-                : item.color === "orange"
-                ? "text-orange-400"
-                : item.color === "yellow"
-                ? "text-yellow-400"
-                : "text-blue-400"
-            }`}
-          />
-          <div>
-            <p className="font-semibold text-white text-sm">{item.title}</p>
-            <p className="text-slate-400 text-sm mt-1">{item.body}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  ),
-
-  articulado: (
-    <div className="space-y-5">
-      <p className="text-slate-400 text-sm">
-        El siguiente articulado modifica el{" "}
-        <strong className="text-white">Artículo 37° de la Ordenanza 442/77</strong>{" "}
-        e incorpora el Régimen de Espacios Seguros.
-      </p>
-      {[
-        {
-          art: "Art. 1°",
-          title: "Modificación del Art. 37° — Régimen de Espacios Seguros",
-          body: 'Incorpórase al Artículo 37° de la Ordenanza 442/77 el "Régimen de Espacios Seguros para Actividades Nocturnas" (RESAN), que habilita el funcionamiento de establecimientos gastronómicos, culturales y de entretenimiento nocturno bajo condiciones verificadas de seguridad, habilitación y responsabilidad municipal.',
-        },
-        {
-          art: "Art. 2°",
-          title: "Permisos Precarios para Gastronomía con Música",
-          body: "Créase el Permiso Precario de Funcionamiento Nocturno (PPFN) para locales gastronómicos con música controlada, que podrán operar con extensión horaria previa acreditación de condiciones edilicias mínimas, habilitación vigente, contratación de personal de seguridad registrado y adhesión al protocolo municipal de prevención de consumo problemático.",
-        },
-        {
-          art: "Art. 3°",
-          title: "Requisitos del RESAN",
-          body: "Los establecimientos adheridos al RESAN deberán cumplir: (a) habilitación municipal vigente; (b) plan de evacuación aprobado; (c) sistema contra incendios certificado; (d) control de acceso con verificación de DNI para menores; (e) personal de seguridad registrado en el Registro Municipal; (f) póliza de seguro de responsabilidad civil.",
-        },
-        {
-          art: "Art. 4°",
-          title: "Autoridad de Aplicación",
-          body: "Desígnase al Departamento Ejecutivo Municipal, a través de la Dirección de Habilitaciones y en coordinación con la Secretaría de Seguridad, como autoridad de aplicación del presente régimen, con facultades de fiscalización, sanción y revocación de permisos.",
-        },
-        {
-          art: "Art. 5°",
-          title: "Vigencia",
-          body: "La presente Ordenanza entrará en vigencia a los noventa (90) días de su promulgación, plazo durante el cual el Departamento Ejecutivo deberá reglamentar el procedimiento de adhesión al RESAN y el PPFN.",
-        },
-      ].map((item) => (
-        <div key={item.art} className="card">
-          <div className="flex items-start gap-3">
-            <div className="min-w-fit px-3 py-1 bg-primary-900/50 border border-primary-800/50 rounded-lg text-primary-300 text-xs font-bold">
-              {item.art}
-            </div>
-            <div>
-              <p className="font-semibold text-white text-sm mb-2">
-                {item.title}
-              </p>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                {item.body}
-              </p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  ),
-
-  imprimible: (
-    <div className="space-y-5">
-      {/* Descripción */}
-      <div className="flex items-start gap-3 p-4 bg-slate-800/60 rounded-xl border-l-4 border-primary-600">
-        <Printer className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
-        <div>
-          <p className="font-semibold text-white text-sm">Planilla Oficial de Firmas — Formato HCD</p>
-          <p className="text-slate-400 text-sm mt-1 leading-relaxed">
-            Planilla A4 lista para imprimir con 15 filas por hoja. Incluye encabezado institucional,
-            QR al proyecto online, y espacio para número de folio y hoja conforme al reglamento
-            del Honorable Concejo Deliberante de Florencio Varela.
-          </p>
-        </div>
-      </div>
-
-      {/* Preview iframe */}
-      <div className="rounded-xl overflow-hidden border border-slate-700 bg-white shadow-lg">
-        <div className="bg-slate-800 px-4 py-2 flex items-center gap-2">
-          <div className="flex gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-red-500/70" />
-            <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
-            <span className="w-3 h-3 rounded-full bg-green-500/70" />
-          </div>
-          <span className="text-slate-400 text-xs ml-2">Vista previa — planilla.html</span>
-        </div>
-        <iframe
-          src="/planilla.html"
-          className="w-full"
-          style={{ height: "420px", border: "none" }}
-          title="Vista previa planilla de firmas"
-        />
-      </div>
-
-      {/* Botones de acción */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <a
-          href="/planilla.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-primary justify-center text-sm py-3"
-        >
-          <Printer className="w-4 h-4" />
-          Abrir e Imprimir Planilla
-        </a>
-        <a
-          href="/planilla.html"
-          download="planilla-firmas-nocturnidad-fv.html"
-          className="btn-secondary justify-center text-sm py-3"
-        >
-          <Download className="w-4 h-4" />
-          Descargar Planilla
-        </a>
-      </div>
-
-      {/* Instrucciones */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {[
-          { n: "1", text: "Imprimí en hoja A4, preferentemente en blanco y negro." },
-          { n: "2", text: "Completá los datos a mano con bolígrafo azul o negro." },
-          { n: "3", text: "Numerá el folio y presentá en Mesa de Entradas del HCD." },
-        ].map((step) => (
-          <div key={step.n} className="flex items-start gap-3 p-3 bg-slate-800/40 rounded-xl border border-slate-700/40">
-            <span className="w-7 h-7 rounded-full bg-primary-900/60 border border-primary-700/50 text-primary-300 text-sm font-bold flex items-center justify-center flex-shrink-0">
-              {step.n}
-            </span>
-            <p className="text-slate-400 text-xs leading-relaxed">{step.text}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  ),
-};
-
-
-export default function ProjectViewer() {
+export default function ProjectViewer({ proyecto }: { proyecto: ProyectoLey }) {
   const [activeTab, setActiveTab] = useState<TabKey>("visto");
   const [expanded, setExpanded] = useState(true);
 
@@ -266,13 +48,27 @@ export default function ProjectViewer() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-primary-950/60 border border-primary-800/50 text-primary-300 text-xs font-medium px-4 py-2 rounded-full mb-4">
             <FileText className="w-3.5 h-3.5" />
-            Proyecto de Ordenanza
+            Proyecto de Ordenanza Unificado
           </div>
-          <h2 className="section-title">El Proyecto de Reforma</h2>
-          <p className="section-subtitle max-w-2xl mx-auto">
-            Texto completo del proyecto presentado ante el Honorable Concejo
-            Deliberante del Partido de Florencio Varela.
+          <h2 className="section-title text-xl sm:text-2xl md:text-3xl leading-tight max-w-3xl mx-auto">
+            {proyecto.titulo}
+          </h2>
+          <p className="section-subtitle max-w-2xl mx-auto text-sm sm:text-base mt-3">
+            Reforma integral del marco regulatorio nocturno ante el Honorable Concejo Deliberante de Florencio Varela.
           </p>
+
+          {/* Normas Modificadas Tags */}
+          <div className="flex flex-wrap justify-center gap-2 mt-4">
+            {proyecto.normasModificadas?.map((norma, idx) => (
+              <span
+                key={idx}
+                className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-slate-300 text-xs font-medium"
+              >
+                <FileCheck className="w-3 h-3 text-primary-400" />
+                {norma}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Visor */}
@@ -309,7 +105,161 @@ export default function ProjectViewer() {
 
           {/* Content */}
           {expanded && (
-            <div className="animate-fade-in-up">{content[activeTab]}</div>
+            <div className="animate-fade-in-up">
+              {/* VISTO */}
+              {activeTab === "visto" && (
+                <div className="space-y-4 text-slate-300 leading-relaxed">
+                  <p>
+                    <strong className="text-white">El Honorable Concejo Deliberante</strong>{" "}
+                    del Partido de Florencio Varela, en uso de sus legítimas atribuciones constitucionales y legales:
+                  </p>
+                  <div className="p-5 bg-slate-800/50 rounded-xl border-l-4 border-primary-600 text-slate-300 text-sm leading-relaxed whitespace-pre-line">
+                    {proyecto.visto}
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-slate-800">
+                    <p className="text-xs text-slate-400 font-semibold mb-2 uppercase tracking-wider">
+                      Marco Normativo Intervenido:
+                    </p>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+                      {proyecto.normasModificadas?.map((norma, i) => (
+                        <li key={i} className="flex items-center gap-2 p-2 bg-slate-900/60 rounded-lg border border-slate-800/60">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-primary-400 flex-shrink-0" />
+                          <span>{norma}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {/* CONSIDERANDO */}
+              {activeTab === "considerando" && (
+                <div className="space-y-3">
+                  {proyecto.considerandos?.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex gap-3 p-4 bg-slate-800/50 rounded-xl border-l-4 border-amber-500/80 text-sm leading-relaxed"
+                    >
+                      <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                      <p className="text-slate-300">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* ARTICULADO */}
+              {activeTab === "articulado" && (
+                <div className="space-y-6">
+                  {proyecto.capitulos?.map((capitulo, capIdx) => (
+                    <div key={capIdx} className="space-y-3">
+                      {/* Título de Capítulo */}
+                      <div className="flex items-center gap-2 pt-2 border-b border-slate-800 pb-2">
+                        <FolderOpen className="w-4 h-4 text-primary-400" />
+                        <span className="text-xs font-bold text-primary-400 uppercase tracking-wider">
+                          {capitulo.numero}:
+                        </span>
+                        <h4 className="text-sm font-bold text-white">
+                          {capitulo.titulo}
+                        </h4>
+                      </div>
+
+                      {/* Artículos del Capítulo */}
+                      <div className="space-y-3 pl-2 sm:pl-4">
+                        {capitulo.articulos?.map((art) => (
+                          <div key={art.numero} className="card bg-slate-900/70 border border-slate-800/80 p-4">
+                            <div className="flex items-start gap-3">
+                              <span className="px-2.5 py-1 bg-primary-950 border border-primary-800/60 rounded-md text-primary-300 text-xs font-mono font-bold flex-shrink-0">
+                                Art. {art.numero}°
+                              </span>
+                              <div>
+                                <h5 className="font-semibold text-white text-xs sm:text-sm mb-1.5">
+                                  {art.titulo}
+                                </h5>
+                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
+                                  {art.contenido}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* IMPRIMIBLE */}
+              {activeTab === "imprimible" && (
+                <div className="space-y-5">
+                  <div className="flex items-start gap-3 p-4 bg-slate-800/60 rounded-xl border-l-4 border-primary-600">
+                    <Printer className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white text-sm">Planilla Oficial de Firmas — Formato HCD</p>
+                      <p className="text-slate-400 text-sm mt-1 leading-relaxed">
+                        Planilla A4 lista para imprimir con 15 filas por hoja. Incluye encabezado con referencia a las Ordenanzas 10.329/23 y 442/77,
+                        código QR al proyecto online, y espacio foliado para presentación legislativa.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Preview iframe */}
+                  <div className="rounded-xl overflow-hidden border border-slate-700 bg-white shadow-lg">
+                    <div className="bg-slate-800 px-4 py-2 flex items-center gap-2">
+                      <div className="flex gap-1.5">
+                        <span className="w-3 h-3 rounded-full bg-red-500/70" />
+                        <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                        <span className="w-3 h-3 rounded-full bg-green-500/70" />
+                      </div>
+                      <span className="text-slate-400 text-xs ml-2">Vista previa — planilla.html</span>
+                    </div>
+                    <iframe
+                      src="/planilla.html"
+                      className="w-full"
+                      style={{ height: "420px", border: "none" }}
+                      title="Vista previa planilla de firmas"
+                    />
+                  </div>
+
+                  {/* Botones de acción */}
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a
+                      href="/planilla.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary justify-center text-sm py-3"
+                    >
+                      <Printer className="w-4 h-4" />
+                      Abrir e Imprimir Planilla
+                    </a>
+                    <a
+                      href="/planilla.html"
+                      download="planilla-firmas-nocturnidad-fv.html"
+                      className="btn-secondary justify-center text-sm py-3"
+                    >
+                      <Download className="w-4 h-4" />
+                      Descargar Planilla
+                    </a>
+                  </div>
+
+                  {/* Instrucciones */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {[
+                      { n: "1", text: "Imprimí en hoja A4, preferentemente en blanco y negro." },
+                      { n: "2", text: "Completá los datos a mano con bolígrafo azul o negro." },
+                      { n: "3", text: "Numerá el folio y presentá en Mesa de Entradas del HCD." },
+                    ].map((step) => (
+                      <div key={step.n} className="flex items-start gap-3 p-3 bg-slate-800/40 rounded-xl border border-slate-700/40">
+                        <span className="w-7 h-7 rounded-full bg-primary-900/60 border border-primary-700/50 text-primary-300 text-sm font-bold flex items-center justify-center flex-shrink-0">
+                          {step.n}
+                        </span>
+                        <p className="text-slate-400 text-xs leading-relaxed">{step.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           )}
 
           {/* Download Button */}
@@ -318,7 +268,7 @@ export default function ProjectViewer() {
               Documento oficial para presentación ante Mesa de Entradas del HCD
             </p>
             <a
-              href="/api/proyecto-pdf"
+              href={proyecto.pdfUrl || "/api/proyecto-pdf"}
               download
               className="btn-secondary text-sm px-5 py-2.5"
             >
