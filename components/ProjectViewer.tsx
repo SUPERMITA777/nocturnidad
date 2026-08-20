@@ -267,14 +267,17 @@ export default function ProjectViewer({ proyecto }: { proyecto: ProyectoLey }) {
             <p className="text-slate-500 text-xs text-center sm:text-left">
               Documento oficial para presentación ante Mesa de Entradas del HCD
             </p>
-            <a
-              href={proyecto.pdfUrl || "/api/proyecto-pdf"}
-              download
-              className="btn-secondary text-sm px-5 py-2.5"
-            >
-              <Download className="w-4 h-4" />
-              Descargar PDF Oficial
-            </a>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href="/proyecto-ordenanza.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-xs px-4 py-2.5 flex items-center gap-1.5"
+              >
+                <Download className="w-4 h-4" />
+                Descargar / Imprimir Texto Completo
+              </a>
+            </div>
           </div>
         </div>
       </div>

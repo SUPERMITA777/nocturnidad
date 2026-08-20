@@ -27,192 +27,195 @@ export type Articulo = z.infer<typeof articuloSchema>;
 export type Capitulo = z.infer<typeof capituloSchema>;
 export type ProyectoLey = z.infer<typeof proyectoLeySchema>;
 
-// Contenido completo con los 10 Capítulos y 22 Artículos oficiales
+// Texto literal completo del Proyecto de Ordenanza oficial
 export const DEFAULT_PROYECTO_LEY: ProyectoLey = {
-  titulo: "Régimen Integral de Funcionamiento, Convivencia, Seguridad Preventiva, Control Territorial y Fomento de la Actividad Nocturna",
+  titulo: "RÉGIMEN INTEGRAL DE FUNCIONAMIENTO, CONVIVENCIA, SEGURIDAD PREVENTIVA, CONTROL TERRITORIAL Y FOMENTO DE LA ACTIVIDAD NOCTURNA DEL PARTIDO DE FLORENCIO VARELA",
   normasModificadas: [
     "Reforma Ord. 10.329/23",
-    "Modificación Código de Faltas 442/77",
-    "Adecuación Ley 14.050",
-    "Protección de Menores Ley 11.748",
+    "Modificación Código de Faltas 442/77 (Art. 37)",
+    "Adecuación Dec. 1.111/23",
+    "Ley Provincial 14.050",
+    "Ley Provincial 11.748",
+    "Dec-Ley Prov. 6.769/58",
   ],
-  visto: "La necesidad de una reforma integral del marco normativo municipal que regula la noche, el esparcimiento, la cultura y la gastronomía en Florencio Varela, comprendiendo las Ordenanzas N.º 10.329/23 y 442/77 (Código de Faltas), su Decreto Reglamentario N.º 1.111/23 y las Leyes Provinciales 14.050 y 11.748; y",
+  visto: "La Ordenanza Municipal N.º 10.329/23, el Decreto Reglamentario N.º 1.111/23, la Ordenanza Municipal N.º 442/77 (Código de Faltas Municipal), el Decreto-Ley Provincial N.º 6.769/58 (Ley Orgánica de las Municipalidades), la Ley Provincial N.º 14.050 reguladora de las actividades nocturnas, la Ley Provincial N.º 11.748 de Protección Integral de los Derechos del Niño y del Adolescente, y demás normativas complementarias aplicables; y",
   considerandos: [
-    "Que el marco normativo actual (Ord. 10.329/23 y Ord. 442/77) adolece de rigideces y superposiciones que han provocado el cierre de espacios formales y la masiva proliferación de fiestas clandestinas en quintas y galpones sin ningún control estatal.",
-    "Que la figura de 'desvirtuación de rubro' del Art. 37 Inc. B de la Ordenanza 442/77 castiga arbitrariamente a la gastronomía y espacios culturales que ofrecen música en vivo o espectáculos acústicos controlados.",
-    "Que los eventos clandestinos exponen a la juventud a graves riesgos siniestrales, carecen de salidas de emergencia, socorrismo y violan sistemáticamente la prohibición de expendio de alcohol a menores (Ley Prov. 11.748).",
-    "Que la nocturnidad formal es un motor económico fundamental que genera empleo genuino para mozos, cocineros, técnicos de sonido e iluminación, músicos, artistas y personal de seguridad local.",
-    "Que es imprescindible establecer un régimen objetivo de medición acústica con decibelímetros homologados para conciliar la actividad con el legítimo descanso de los vecinos linderos.",
-    "Que resulta urgente dotar al Municipio de un servicio arancelado de inspectores en territorio y agravar las sanciones a los organizadores y propietarios de predios clandestinos.",
+    "Que el crecimiento demográfico, urbano, comercial y cultural del Partido de Florencio Varela exige una regulación moderna, integral y eficaz de las actividades de esparcimiento nocturno, gastronomía y espectáculos públicos;",
+    "Que la actividad desarrollada por bares, salones de eventos, locales bailables, centros culturales y establecimientos gastronómicos con actividad nocturna constituye un motor fundamental de la economía local, generando empleo directo e indirecto para trabajadores gastronómicos, técnicos de sonido e iluminación, artistas, personal de logística y seguridad;",
+    "Que la experiencia de aplicación de la Ordenanza N.º 10.329/23 ha demostrado que los esquemas excesivamente rígidos o punitivos no suprimen la demanda de esparcimiento de la población, sino que provocan el desplazamiento de los asistentes hacia eventos y fiestas clandestinas en quintas y galpones periféricos no habilitados;",
+    "Que las actividades clandestinas configuran un riesgo crítico para la seguridad y la salud comunitaria, al desarrollarse sin salidas de emergencia, sin seguros de responsabilidad civil, sin cobertura de emergencias médicas, sin controles bromatológicos, sin fiscalización del expendio de sustancias prohibidas y sin control del ingreso de personas menores de edad;",
+    "Que resulta imperativo conciliar el derecho al trabajo, al esparcimiento y a la inversión local con el legítimo derecho de los vecinos linderos al descanso, la tranquilidad pública, la seguridad vial y el uso pacífico del espacio público;",
+    "Que una política pública moderna debe priorizar la prevención territorial previa por sobre la clausura automática ante faltas de carácter administrativo o subsanable, estableciendo reglas claras, objetividad técnica en las mediciones acústicas, gradualidad en las sanciones y un marco de responsabilidad activa en el espacio público exterior lindante;",
+    "Que es conveniente prever mecanismos de financiamiento para el control nocturno en territorio mediante servicios especiales de inspección y presencia preventiva, garantizando al mismo tiempo que las actividades artísticas o musicales complementarias en locales gastronómicos habilitados no sean tipificadas indebidamente como desvirtuación de rubro;",
   ],
   capitulos: [
     {
-      numero: "Capítulo I",
-      titulo: "Objeto y Principios",
+      numero: "CAPÍTULO I",
+      titulo: "OBJETO Y PRINCIPIOS GENERALES",
       articulos: [
         {
           numero: 1,
           titulo: "Objeto",
-          contenido: "La presente Ordenanza establece el Régimen Integral de Funcionamiento, Convivencia, Seguridad Preventiva, Control Territorial y Fomento de la Actividad Nocturna en el Partido de Florencio Varela.",
+          contenido: "La presente Ordenanza tiene por objeto establecer un régimen integral para el funcionamiento, habilitación, seguridad preventiva, control en territorio y convivencia de los establecimientos que desarrollen actividades nocturnas en el Partido de Florencio Varela, compatibilizando:\na) El derecho al trabajo formal y al desarrollo de actividades comerciales, culturales y recreativas lícitas.\nb) La seguridad física e integral de trabajadores, concurrentes, frentistas y terceros.\nc) El derecho de los vecinos al descanso, la tranquilidad y el uso adecuado del espacio público.\nd) La prevención activa de hechos de violencia, siniestros y situaciones de riesgo antes, durante y después de cada actividad.\ne) El cumplimiento estricto y coordinado de las normativas municipales, provinciales y nacionales aplicables.\nf) La promoción prioritaria de la mano de obra, proveedores y artistas locales.",
         },
         {
           numero: 2,
-          titulo: "Principios Rectores",
-          contenido: "Son principios de la presente norma: la gradualidad en la fiscalización, la prevención activa del riesgo, la protección de la vida y de los menores de edad, el descanso vecinal armónico y la defensa irrestricta del trabajo cultural y gastronómico local.",
+          titulo: "Principios rectores",
+          contenido: "La aplicación de la presente Ordenanza se regirá por los principios de:\na) Prevención previa y territorial.\nb) Razonabilidad y proporcionalidad sancionatoria.\nc) Gradualidad y subsanabilidad de faltas administrativas.\nd) Debido proceso y derecho de defensa.\ne) Responsabilidad objetiva del titular en el perímetro de funcionamiento.\nf) Objetividad técnica en las constataciones de infracciones.\ng) Convivencia armónica entre la actividad comercial y la comunidad vecinal.",
         },
       ],
     },
     {
-      numero: "Capítulo II",
-      titulo: "Permiso Especial Accesorio para Gastronomía y Cultura",
+      numero: "CAPÍTULO II",
+      titulo: "ÁMBITO DE APLICACIÓN Y PERMISOS",
       articulos: [
         {
           numero: 3,
-          titulo: "Creación del Permiso Especial Accesorio (PEA)",
-          contenido: "Establécese el Permiso Especial Accesorio (PEA) para locales gastronómicos, bares, peñas, cafés y centros culturales habilitados que incorporen música en vivo, espectáculos acústicos o baile controlado.",
+          titulo: "Establecimientos comprendidos",
+          contenido: "Quedan comprendidos en el presente régimen todos los establecimientos y predios habilitados para desarrollar actividades nocturnas en el Partido de Florencio Varela, tales como bares, restaurantes con actividad nocturna, cervecerías, locales bailables, salones de eventos y fiestas, centros culturales, clubes sociales y demás emprendimientos afines.\nLa autoridad de aplicación determinará las exigencias técnicas específicas según la categoría, aforo, zonificación urbana y modalidad de funcionamiento.",
         },
         {
           numero: 4,
-          titulo: "Exclusión de Desvirtuación de Rubro",
-          contenido: "El ejercicio de actividades comprendidas en el PEA no constituirá en ningún caso 'desvirtuación de rubro' bajo el Código de Faltas (Ord. 442/77), siempre que se cumplimenten los parámetros de aforo e insonorización autorizados.",
+          titulo: "Permiso Especial de Actividad Cultural y Recreativa Accesoria",
+          contenido: "Los establecimientos gastronómicos o culturales debidamente habilitados que deseen incorporar de forma habitual o periódica presentaciones artísticas, DJ o pistas complementarias de baile, podrán solicitar un \"Permiso Especial y Precario de Actividad Cultural y Recreativa\".\nEl otorgamiento de dicho permiso impedirá que la actividad sea considerada como desvirtuación de rubro comercial en los términos del régimen de faltas municipal, siempre que se respeten los límites de aforo asignados y los niveles de insonorización reglamentarios.",
         },
       ],
     },
     {
-      numero: "Capítulo III",
-      titulo: "Seguridad Preventiva Previa y Control de Aforo",
+      numero: "CAPÍTULO III",
+      titulo: "CONDICIONES TÉCNICAS Y SEGURIDAD PREVENTIVA",
       articulos: [
         {
           numero: 5,
-          titulo: "Seguridad Estructural y Siniestral",
-          contenido: "Todo espacio nocturno deberá contar con informe técnico de bomberos, planos de evacuación visibles, sistemas ignífugos certificados, salidas de emergencia antipánico y seguro de responsabilidad civil vigente.",
+          titulo: "Requisitos de seguridad previa",
+          contenido: "Todo establecimiento alcanzado deberá mantener vigentes, acreditadas y operativas las siguientes condiciones técnicas con anterioridad a la apertura al público:\na) Certificación de instalaciones eléctricas visada por profesional matriculado con encomienda vigente.\nb) Certificación antisiniestral e informe técnico de operatividad de medios de escape y extintores al día.\nc) Póliza de Seguro de Responsabilidad Civil comprensiva de asistentes y terceros.\nd) Servicio de emergencias médicas de área protegida.\ne) Puntos de hidratación gratuitos, señalizados y accesibles con suministro continuo de agua potable.\nf) Mecanismos verificables de control de aforo y factor ocupacional.\ng) Personal de seguridad y vigilancia debidamente habilitado conforme a la Ley Provincial N.º 12.297 y normas complementarias.",
         },
+      ],
+    },
+    {
+      numero: "CAPÍTULO IV",
+      titulo: "DISPOSITIVO EXTERIOR, VÍA PÚBLICA Y CONVIVENCIA",
+      articulos: [
         {
           numero: 6,
-          titulo: "Control Digital de Aforo y Accesos",
-          contenido: "Los establecimientos con capacidad superior a 200 personas deberán implementar contadores digitales de ingreso/egreso en tiempo real visibles en el acceso y verificación fehaciente de DNI.",
+          titulo: "Plan de Seguridad y Ordenamiento en Calles Lindantes",
+          contenido: "Los establecimientos deberán presentar ante la autoridad municipal, como requisito indispensable de funcionamiento, un \"Plan de Seguridad y Ordenamiento Exterior\", que contemplará:\na) Dispositivo perimetral de orden y prevención en accesos y veredas inmediatas, coordinando personal de seguridad privada habilitado y/o la contratación de servicios de Policía Adicional (PolAd) para la prevención del delito, desmanes y facilitación del egreso ordenado.\nb) Esquema de circulación peatonal y vehicular que impida la obstrucción de garajes, rampas de accesibilidad y accesos a viviendas de frentistas linderos.\nc) Operativo de limpieza y acondicionamiento del frente y veredas perimetrales dentro de las dos (2) horas posteriores al cese de la actividad.",
         },
-      ],
-    },
-    {
-      numero: "Capítulo IV",
-      titulo: "Plan de Seguridad Perimetral Exterior y Canal Directo Vecinal",
-      articulos: [
         {
           numero: 7,
-          titulo: "Seguridad Perimetral y Corredores Seguros",
-          contenido: "Los titulares deberán disponer personal de control y prevención en el perímetro exterior del local durante el ingreso y egreso, coordinando corredores seguros hacia paradas de transporte público.",
-        },
-        {
-          numero: 8,
-          titulo: "Canal Directo de Enlace Vecinal",
-          contenido: "Cada establecimiento designará un responsable de guardia y una línea telefónica directa y pública para atención inmediata de reclamos de vecinos frentistas y linderos.",
+          titulo: "Responsable de Convivencia y Canal de Enlace Vecinal",
+          contenido: "Los establecimientos deberán designar un Responsable de Convivencia y Seguridad en cada jornada de actividad, quien deberá:\na) Poner a disposición de los vecinos frentistas y linderos una línea de comunicación directa y de respuesta inmediata (telefónica o mensajería instantánea) para atender incidencias en tiempo real durante el horario de actividad.\nb) Coordinar las medidas operativas para disipar ruidos o concentraciones indebidas en la vía pública vinculadas al local.\nc) Articular la respuesta inmediata con los inspectores municipales y las fuerzas de seguridad pública.\nLa existencia de un reclamo vecinal no configurará infracción automática por sí misma, requiriendo constatación objetiva por parte de la autoridad competente.",
         },
       ],
     },
     {
-      numero: "Capítulo V",
-      titulo: "Horarios y Medición Acústica Objetiva",
+      numero: "CAPÍTULO V",
+      titulo: "HORARIOS Y CONTROL TÉCNICO ACÚSTICO",
       articulos: [
         {
+          numero: 8,
+          titulo: "Régimen Horario General",
+          contenido: "Los establecimientos desarrollarán sus actividades respetando los límites de la legislación provincial (Ley N.º 14.050) bajo las siguientes franjas de funcionamiento:\na) Jueves, Domingos y Vísperas de feriados no laborables: Hasta las 02:00 horas del día siguiente.\nb) Viernes, Sábados y Vísperas de feriados: Hasta las 05:30 horas del día siguiente, cesando la venta y suministro de bebidas alcohólicas a las 04:30 horas.\nc) Lunes a Miércoles: Límite sonoro amplificado hasta las 00:00 horas, permitiéndose únicamente ambientaciones acústicas de bajo impacto que no trasciendan los límites de la propiedad.",
+        },
+        {
           numero: 9,
-          titulo: "Límites Acústicos Objetivos",
-          contenido: "Las mediciones de ruidos molestos se efectuarán exclusivamente mediante decibelímetros homologados y calibrados, en el interior de las viviendas linderas afectadas, descartando apreciaciones subjetivas.",
+          titulo: "Constatación Objetiva de Niveles Sonoros",
+          contenido: "Las presuntas infracciones por ruidos molestos o superación de límites acústicos deberán ser constatadas fehacientemente mediante instrumentos homologados (decibelímetros/sonómetros) conforme a las normas IRAM correspondientes.\nEl acta de inspección deberá detallar obligatoriamente: fecha, hora, ubicación del punto de medición, instrumental utilizado con certificado de calibración vigente, nivel sonoro basal de fondo y valor registrado. Las apreciaciones subjetivas o denuncias sin medición técnica no constituirán causal de sanción pecuniaria ni clausura.",
         },
         {
           numero: 10,
-          titulo: "Régimen Horario Diferenciado",
-          contenido: "Fíjanse horarios de cierre escalonados según rubro y día de la semana, permitiendo extensión en fines de semana y vísperas de feriados conforme a la Ley Provincial 14.050.",
+          titulo: "Servicio Municipal de Presencia Inspectiva y Fiscalización Nocturna",
+          contenido: "Facúltase al Departamento Ejecutivo a implementar el \"Servicio Especial de Inspectores en Territorio\":\na) Los establecimientos que organicen eventos masivos o hagan uso de permisos de extensión abonarán un canon específico por jornada, establecido en la Ordenanza Fiscal y Tributaria.\nb) Los fondos recaudados financiarán de manera exclusiva la presencia de inspectores municipales en las zonas de mayor concentración nocturna, a fin de fiscalizar el cumplimiento de decibeles, aforo, orden en veredas y resolver de forma presencial los requerimientos vecinales.",
         },
       ],
     },
     {
-      numero: "Capítulo VI",
-      titulo: "Servicio Municipal de Inspectores en Territorio Arancelado",
+      numero: "CAPÍTULO VI",
+      titulo: "RÉGIMEN DE GRADUALIDAD Y SANCIONES",
       articulos: [
         {
           numero: 11,
-          titulo: "Cuerpo de Inspectores Nocturnos",
-          contenido: "Créase el Cuerpo Especializado de Inspectores de Nocturnidad con presencia territorial activa, móvil y preventiva en zonas comerciales y de esparcimiento.",
+          titulo: "Principio de Gradualidad y Faltas Subsanables",
+          contenido: "Ante la detección de infracciones meramente formales o administrativas que no configuren un riesgo inminente para la vida o la integridad física de las personas, la autoridad de aplicación deberá intimar formalmente al titular a subsanar el incumplimiento dentro de un plazo razonable no menor a cuarenta y ocho (48) horas hábiles, previo a la aplicación de penalidades económicas o clausuras.",
         },
         {
           numero: 12,
-          titulo: "Tasa Arancelada de Fiscalización Preventiva",
-          contenido: "La fiscalización preventiva se financiará mediante un arancel mensual retributivo de servicios, afectado exclusivamente al equipamiento, capacitación y movilidad del cuerpo inspectivo.",
+          titulo: "Escala de Sanciones",
+          contenido: "Las sanciones por contravenciones a la presente norma se aplicarán respetando la siguiente escala progresiva:\na) Apercibimiento formal.\nb) Intimación perentoria de regularización.\nc) Multa graduada en unidades fijas/módulos según la gravedad del hecho.\nd) Suspensión temporal del Permiso Especial de Actividad Cultural y Recreativa.\ne) Clausura temporal por plazo determinado.\nf) Clausura definitiva en casos de reincidencia grave y contumaz.",
+        },
+        {
+          numero: 13,
+          titulo: "Clausura Preventiva Excepcional",
+          contenido: "La clausura preventiva únicamente procederá cuando exista un riesgo concreto, actual, grave e inminente para la seguridad de las personas (tales como bloqueo total de salidas de escape, riesgo eléctrico grave, exceso crítico y manifiesto de aforo o ausencia absoluta de seguro y emergencias médicas), o cuando se constate la realización de actividades en la clandestinidad.",
         },
       ],
     },
     {
-      numero: "Capítulo VII",
-      titulo: "Escala de Sanciones y Clausura Preventiva",
+      numero: "CAPÍTULO VII",
+      titulo: "FIESTAS CLANDESTINAS Y PROTECCIÓN DE MENORES",
       articulos: [
         {
-          numero: 13,
-          titulo: "Gradualidad de las Sanciones",
-          contenido: "El régimen sancionatorio observará estricta gradualidad: 1) Apercibimiento con plazo de adecuación; 2) Multa económica gradual; 3) Suspensión transitoria del PEA; 4) Clausura definitiva.",
-        },
-        {
           numero: 14,
-          titulo: "Límite a la Clausura Preventiva",
-          contenido: "La clausura preventiva sólo procederá ante situaciones de peligro grave, manifiesto e inminente para la vida o la seguridad pública, debiendo fundamentarse técnicamente en el acta respectiva.",
+          titulo: "Represión de la Clandestinidad",
+          contenido: "Se tipifica como falta gravísima la organización, comercialización, difusión pública o facilitación de inmuebles, quintas o galpones para fiestas o eventos de concurrencia pública sin habilitación municipal previa.\nEn estos casos se dispondrá la inmediata clausura preventiva del predio, el secuestro y decomiso del equipamiento de sonido e iluminación utilizado, y la aplicación de multas solidarias a organizadores, promotores y titulares dominiales del inmueble.",
         },
         {
           numero: 15,
-          titulo: "Derecho a Subsanación Rápida",
-          contenido: "Constatada una falta menor que no involucre riesgo físico, se otorgará un plazo perentorio de 72 horas hábiles para su subsanación antes de aplicar penalidades pecuniarias.",
+          titulo: "Prohibición de Alcohol a Menores",
+          contenido: "Queda taxativamente prohibido el expendio, suministro y consumo de bebidas alcohólicas a personas menores de dieciocho (18) años, así como la concurrencia simultánea de menores y mayores en establecimientos en horario bailable, en estricto cumplimiento de las Leyes Provinciales N.º 11.748 y N.º 14.050.",
         },
       ],
     },
     {
-      numero: "Capítulo VIII",
-      titulo: "Represión de Fiestas Clandestinas y Prohibición de Alcohol a Menores",
+      numero: "CAPÍTULO VIII",
+      titulo: "EMPLEO LOCAL Y REGISTRO DE CONVIVENCIA",
       articulos: [
         {
           numero: 16,
-          titulo: "Tolerancia Cero a la Clandestinidad",
-          contenido: "Considérase infracción gravísima la realización de eventos con cobro de entrada o expendio de bebidas en inmuebles sin habilitación. El Municipio procederá a la clausura inmediata, desalojo pacífico y secuestro de equipos de sonido e iluminación.",
+          titulo: "Fomento de Mano de Obra y Artistas Locales",
+          contenido: "Los establecimientos alcanzados por la presente Ordenanza deberán procurar que al menos un sesenta por ciento (60%) de las contrataciones destinadas a personal operativo, logística, técnicos, seguridad y presentaciones artísticas recaiga en personas con residencia acreditada en el Partido de Florencio Varela.",
         },
         {
           numero: 17,
-          titulo: "Responsabilidad Solidaria de Propietarios",
-          contenido: "Los titulares de dominio de quintas, galpones y predios responderán solidariamente por las multas y costos operativos derivados de las fiestas clandestinas realizadas en sus inmuebles.",
-        },
-        {
-          numero: 18,
-          titulo: "Protección Estricta de Menores (Ley 11.748)",
-          contenido: "Queda absolutamente prohibido el expendio, suministro y consumo de bebidas alcohólicas a menores de 18 años, disponiéndose la clausura inmediata del establecimiento ante su incumplimiento.",
+          titulo: "Registro de Establecimientos Comprometidos",
+          contenido: "Créase el \"Registro Municipal de Establecimientos Comprometidos con la Convivencia y la Nocturnidad Segura\", destinado a distinguir y otorgar celeridad administrativa en trámites y permisos a aquellos locales que acrediten una conducta sostenida sin infracciones graves, cumplimiento de normas de seguridad e integración activa con los vecinos de su entorno.",
         },
       ],
     },
     {
-      numero: "Capítulo IX",
-      titulo: "Registro de Establecimientos Comprometidos y Fomento del Empleo Local",
+      numero: "CAPÍTULO IX",
+      titulo: "PARTICIPACIÓN CIUDADANA Y MESA DE TRABAJO",
+      articulos: [
+        {
+          numero: 18,
+          titulo: "Mesa Municipal de Nocturnidad y Convivencia",
+          contenido: "Créase la Mesa Municipal de Nocturnidad y Convivencia, con carácter de órgano consultivo y participativo, integrada por representantes del Departamento Ejecutivo, del Honorable Concejo Deliberante, de las cámaras de comercio y gastronomía, de los colectivos de trabajadores/artistas y de entidades vecinales del distrito, con el fin de evaluar la aplicación del régimen, proponer ajustes operativos y analizar las dinámicas del sector.",
+        },
+      ],
+    },
+    {
+      numero: "CAPÍTULO X",
+      titulo: "DISPOSICIONES COMPLEMENTARIAS Y MODIFICACIONES",
       articulos: [
         {
           numero: 19,
-          titulo: "Registro de Espacios Comprometidos (REC)",
-          contenido: "Créase el Registro de Establecimientos Comprometidos con la Nocturnidad Segura, otorgando sello de calidad municipal y beneficios impositivos en tasas locales a quienes mantengan legajo limpio.",
+          titulo: "Modificación del Código de Faltas Municipal (Ord. N.º 442/77)",
+          contenido: "Incorpórase como segundo párrafo del Inciso B del Artículo 37 de la Ordenanza N.º 442/77 el siguiente texto:\n\"No se configurará alteración ni desvirtuación de rubro pasible de clausura en aquellos establecimientos habilitados para gastronomía, salones o centros culturales que incorporen actividades musicales, artísticas o pistas accesorias de baile, siempre que cuenten con el Permiso Especial correspondiente y no vulneren los límites sonoros objetivos ni el aforo fijado por la autoridad competente.\"",
         },
         {
           numero: 20,
-          titulo: "Cupo de Empleo y Contratación Local del 60%",
-          contenido: "Los locales adheridos al régimen deberán garantizar que al menos el sesenta por ciento (60%) de su personal (mozos, cocina, barra, seguridad, sonido, técnica y artistas) tenga domicilio real en Florencio Varela.",
+          titulo: "Modificación de la Ordenanza N.º 10.329/23",
+          contenido: "Modifícanse todos los artículos y disposiciones de la Ordenanza N.º 10.329/23 que se opongan a la presente, debiendo el Departamento Ejecutivo proceder a la confección del respectivo Texto Ordenado.",
         },
-      ],
-    },
-    {
-      numero: "Capítulo X",
-      titulo: "Modificaciones Expresas a la Ord. 10.329/23 y Ord. 442/77",
-      articulos: [
         {
           numero: 21,
-          titulo: "Modificación de la Ordenanza N.º 10.329/23 y Decreto 1.111/23",
-          contenido: "Modifícanse los artículos pertinentes de la Ordenanza Municipal N.º 10.329/23 y de su Decreto Reglamentario N.º 1.111/23, adecuándolos a las figuras del PEA, RESAN y a los principios de la presente norma.",
+          titulo: "Plazo de Reglamentación y Adecuación",
+          contenido: "El Departamento Ejecutivo Municipal reglamentará la presente Ordenanza dentro de un plazo de sesenta (60) días corridos desde su promulgación. Los establecimientos actualmente habilitados dispondrán de noventa (90) días a partir de la publicación de la reglamentación para completar su adecuación a las exigencias operativas y registrar a sus responsables de convivencia.",
         },
         {
           numero: 22,
-          titulo: "Modificación del Artículo 37 de la Ordenanza N.º 442/77",
-          contenido: "Incorpórase como excepción al Art. 37 Inc. B de la Ord. 442/77 la actividad musical y cultural accesoria debidamente habilitada bajo el PEA, derogándose toda disposición que se oponga a la presente Ordenanza.",
+          titulo: "De forma",
+          contenido: "Comuníquese al Departamento Ejecutivo Municipal, publíquese en el Boletín Oficial Municipal, regístrese y archívese.",
         },
       ],
     },
