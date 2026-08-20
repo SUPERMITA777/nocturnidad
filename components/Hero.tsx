@@ -52,11 +52,26 @@ function AnimatedCounter({ target }: { target: number }) {
 }
 
 export default function Hero({ initialCount, metaFirmas = 5000 }: HeroProps) {
+  const [currentCount, setCurrentCount] = useState(initialCount);
+
+  useEffect(() => {
+    setCurrentCount(initialCount);
+    // Refresco en vivo del conteo
+    fetch("/api/signature-count")
+      .then((res) => res.json())
+      .then((data) => {
+        if (typeof data.count === "number") {
+          setCurrentCount(data.count);
+        }
+      })
+      .catch(() => {});
+  }, [initialCount]);
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const progressPercent = Math.min((initialCount / (metaFirmas || 5000)) * 100, 100);
+  const progressPercent = Math.min((currentCount / (metaFirmas || 5000)) * 100, 100);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
@@ -151,7 +166,7 @@ export default function Hero({ initialCount, metaFirmas = 5000 }: HeroProps) {
             </span>
           </div>
           <div className="text-5xl font-black text-white text-center mb-1">
-            <AnimatedCounter target={initialCount} />
+            <AnimatedCounter target={currentCount} />
           </div>
           <p className="text-center text-slate-500 text-xs">
             Firmas registradas ante el HCD

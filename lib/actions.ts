@@ -154,19 +154,20 @@ export async function submitSignature(
 export async function getSignatureCount(): Promise<number> {
   try {
     const db = getFirestore();
-    // Usamos un documento contador para evitar leer toda la colección
-    const counterRef = db.collection("metadata").doc("firmas_counter");
-    const counterSnap = await counterRef.get();
-
-    if (counterSnap.exists) {
-      return counterSnap.data()?.count ?? 0;
-    }
-
-    // Fallback: contar documentos directamente (sólo para inicialización)
+    // Consultar el conteo real de documentos en la colección 'firmas'
     const snapshot = await db.collection("firmas").count().get();
-    return snapshot.data().count;
+    const count = snapshot.data().count;
+    return count;
   } catch (error) {
     console.error("Error obteniendo conteo de firmas:", error);
+    try {
+      const db = getFirestore();
+      const counterRef = db.collection("metadata").doc("firmas_counter");
+      const counterSnap = await counterRef.get();
+      if (counterSnap.exists) {
+        return counterSnap.data()?.count ?? 0;
+      }
+    } catch {}
     return 0;
   }
 }
