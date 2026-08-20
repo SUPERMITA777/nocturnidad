@@ -10,9 +10,10 @@ import {
   Scale,
   AlertTriangle,
   CheckCircle2,
+  Printer,
 } from "lucide-react";
 
-type TabKey = "visto" | "considerando" | "articulado";
+type TabKey = "visto" | "considerando" | "articulado" | "imprimible";
 
 const sections: { key: TabKey; label: string; icon: React.ReactNode }[] = [
   { key: "visto", label: "VISTO", icon: <BookOpen className="w-4 h-4" /> },
@@ -25,6 +26,11 @@ const sections: { key: TabKey; label: string; icon: React.ReactNode }[] = [
     key: "articulado",
     label: "ARTICULADO",
     icon: <Scale className="w-4 h-4" />,
+  },
+  {
+    key: "imprimible",
+    label: "IMPRIMIBLE",
+    icon: <Printer className="w-4 h-4" />,
   },
 ];
 
@@ -174,7 +180,80 @@ const content: Record<TabKey, React.ReactNode> = {
       ))}
     </div>
   ),
+
+  imprimible: (
+    <div className="space-y-5">
+      {/* Descripción */}
+      <div className="flex items-start gap-3 p-4 bg-slate-800/60 rounded-xl border-l-4 border-primary-600">
+        <Printer className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
+        <div>
+          <p className="font-semibold text-white text-sm">Planilla Oficial de Firmas — Formato HCD</p>
+          <p className="text-slate-400 text-sm mt-1 leading-relaxed">
+            Planilla A4 lista para imprimir con 15 filas por hoja. Incluye encabezado institucional,
+            QR al proyecto online, y espacio para número de folio y hoja conforme al reglamento
+            del Honorable Concejo Deliberante de Florencio Varela.
+          </p>
+        </div>
+      </div>
+
+      {/* Preview iframe */}
+      <div className="rounded-xl overflow-hidden border border-slate-700 bg-white shadow-lg">
+        <div className="bg-slate-800 px-4 py-2 flex items-center gap-2">
+          <div className="flex gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-red-500/70" />
+            <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+            <span className="w-3 h-3 rounded-full bg-green-500/70" />
+          </div>
+          <span className="text-slate-400 text-xs ml-2">Vista previa — planilla.html</span>
+        </div>
+        <iframe
+          src="/planilla.html"
+          className="w-full"
+          style={{ height: "420px", border: "none" }}
+          title="Vista previa planilla de firmas"
+        />
+      </div>
+
+      {/* Botones de acción */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <a
+          href="/planilla.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary justify-center text-sm py-3"
+        >
+          <Printer className="w-4 h-4" />
+          Abrir e Imprimir Planilla
+        </a>
+        <a
+          href="/planilla.html"
+          download="planilla-firmas-nocturnidad-fv.html"
+          className="btn-secondary justify-center text-sm py-3"
+        >
+          <Download className="w-4 h-4" />
+          Descargar Planilla
+        </a>
+      </div>
+
+      {/* Instrucciones */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {[
+          { n: "1", text: "Imprimí en hoja A4, preferentemente en blanco y negro." },
+          { n: "2", text: "Completá los datos a mano con bolígrafo azul o negro." },
+          { n: "3", text: "Numerá el folio y presentá en Mesa de Entradas del HCD." },
+        ].map((step) => (
+          <div key={step.n} className="flex items-start gap-3 p-3 bg-slate-800/40 rounded-xl border border-slate-700/40">
+            <span className="w-7 h-7 rounded-full bg-primary-900/60 border border-primary-700/50 text-primary-300 text-sm font-bold flex items-center justify-center flex-shrink-0">
+              {step.n}
+            </span>
+            <p className="text-slate-400 text-xs leading-relaxed">{step.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
 };
+
 
 export default function ProjectViewer() {
   const [activeTab, setActiveTab] = useState<TabKey>("visto");
