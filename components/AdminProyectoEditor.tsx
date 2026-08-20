@@ -264,21 +264,37 @@ export default function AdminProyectoEditor() {
           </div>
         ) : (
           <>
-            {/* Título Principal y Visto */}
+            {/* Título Principal, Visto y Meta de Firmas */}
             <div className="card p-6 border border-slate-800 space-y-4">
               <h2 className="text-base font-bold text-white flex items-center gap-2">
                 <FileText className="w-4 h-4 text-primary-400" />
-                Título y Visto
+                Configuración General y Visto
               </h2>
 
-              <div>
-                <label className="label text-xs">Título del Proyecto de Ordenanza</label>
-                <input
-                  type="text"
-                  value={proyecto.titulo}
-                  onChange={(e) => setProyecto({ ...proyecto, titulo: e.target.value })}
-                  className="input-field text-xs"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="sm:col-span-2">
+                  <label className="label text-xs">Título del Proyecto de Ordenanza</label>
+                  <input
+                    type="text"
+                    value={proyecto.titulo}
+                    onChange={(e) => setProyecto({ ...proyecto, titulo: e.target.value })}
+                    className="input-field text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="label text-xs font-semibold text-accent-400">
+                    Número Objetivo de Firmas
+                  </label>
+                  <input
+                    type="number"
+                    min={100}
+                    step={100}
+                    value={proyecto.metaFirmas ?? 5000}
+                    onChange={(e) => setProyecto({ ...proyecto, metaFirmas: Number(e.target.value) || 5000 })}
+                    className="input-field text-xs font-bold text-white border-accent-600/50 focus:border-accent-400"
+                    placeholder="Ej: 5000"
+                  />
+                </div>
               </div>
 
               <div>

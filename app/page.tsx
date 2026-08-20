@@ -19,7 +19,7 @@ export default async function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
-      <Hero initialCount={count} />
+      <Hero initialCount={count} metaFirmas={proyecto.metaFirmas || 5000} />
       <ProjectViewer proyecto={proyecto} />
       <PetitionForm />
       <FAQ />

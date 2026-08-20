@@ -5,6 +5,7 @@ import { ArrowDown, FileText, PenLine, Users, FileCheck } from "lucide-react";
 
 interface HeroProps {
   initialCount: number;
+  metaFirmas?: number;
 }
 
 function AnimatedCounter({ target }: { target: number }) {
@@ -50,10 +51,12 @@ function AnimatedCounter({ target }: { target: number }) {
   );
 }
 
-export default function Hero({ initialCount }: HeroProps) {
+export default function Hero({ initialCount, metaFirmas = 5000 }: HeroProps) {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const progressPercent = Math.min((initialCount / (metaFirmas || 5000)) * 100, 100);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
@@ -156,11 +159,11 @@ export default function Hero({ initialCount }: HeroProps) {
           <div className="mt-3 h-2 bg-slate-800 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-primary-600 to-primary-400 rounded-full transition-all duration-1000"
-              style={{ width: `${Math.min((initialCount / 500) * 100, 100)}%` }}
+              style={{ width: `${progressPercent}%` }}
             />
           </div>
-          <p className="text-center text-slate-500 text-xs mt-2">
-            Meta: 500 firmas
+          <p className="text-center text-slate-300 text-xs font-semibold mt-2.5">
+            OBJETIVO: {metaFirmas.toLocaleString("es-AR")} FIRMAS
           </p>
         </div>
       </div>

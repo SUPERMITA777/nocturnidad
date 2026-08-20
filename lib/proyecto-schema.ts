@@ -18,6 +18,7 @@ export const proyectoLeySchema = z.object({
   visto: z.string(),
   considerandos: z.array(z.string()),
   capitulos: z.array(capituloSchema),
+  metaFirmas: z.number().optional().default(5000),
   pdfUrl: z.string().optional().default("/proyecto-ordenanza.pdf"),
   ultimaActualizacion: z.any().optional(),
 });
@@ -216,5 +217,6 @@ export const DEFAULT_PROYECTO_LEY: ProyectoLey = {
       ],
     },
   ],
+  metaFirmas: 5000,
   pdfUrl: "/proyecto-ordenanza.pdf",
 };
