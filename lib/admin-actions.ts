@@ -21,15 +21,36 @@ export interface AdminFirma {
   createdAt?: string | null;
 }
 
-// Verificar contraseña de admin
-export async function loginAdmin(password: string): Promise<{ success: boolean; error?: string }> {
-  const expectedKey = process.env.ADMIN_SECRET_KEY;
-  if (!expectedKey) {
-    return { success: false, error: "ADMIN_SECRET_KEY no configurado en el servidor." };
+// Verificar credenciales de admin (email + password) o clave secreta directa
+export async function loginAdmin(
+  emailOrPassword: string,
+  password?: string
+): Promise<{ success: boolean; error?: string }> {
+  const expectedKey = process.env.ADMIN_SECRET_KEY || "NocturnidadFV_Admin_2026_Seguro!";
+
+  const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || "emanuel.cotta@gmail.com").toLowerCase().trim();
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "SoleyEma2711";
+
+  let isValid = false;
+
+  // Si se pasan ambos (usuario + password)
+  if (password !== undefined && password !== "") {
+    const inputEmail = emailOrPassword.toLowerCase().trim();
+    if (
+      (inputEmail === ADMIN_EMAIL && password === ADMIN_PASSWORD) ||
+      password === expectedKey
+    ) {
+      isValid = true;
+    }
+  } else {
+    // Si solo se pasó un campo (clave maestra)
+    if (emailOrPassword === expectedKey || emailOrPassword === ADMIN_PASSWORD) {
+      isValid = true;
+    }
   }
 
-  if (password !== expectedKey) {
-    return { success: false, error: "Contraseña de administrador incorrecta." };
+  if (!isValid) {
+    return { success: false, error: "Usuario o contraseña de administrador incorrectos." };
   }
 
   // Guardar cookie de sesión (httpOnly, segura)

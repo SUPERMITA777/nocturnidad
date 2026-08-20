@@ -31,6 +31,7 @@ import {
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [email, setEmail] = useState("emanuel.cotta@gmail.com");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -79,13 +80,13 @@ export default function AdminDashboard() {
     e.preventDefault();
     setLoginError("");
     setIsLoggingIn(true);
-    const res = await loginAdmin(password);
+    const res = await loginAdmin(email, password);
     if (res.success) {
       setIsAuthenticated(true);
       setPassword("");
       loadFirmas();
     } else {
-      setLoginError(res.error || "Contraseña inválida");
+      setLoginError(res.error || "Credenciales inválidas");
     }
     setIsLoggingIn(false);
   };
@@ -167,16 +168,31 @@ export default function AdminDashboard() {
             )}
 
             <div>
+              <label className="label text-xs" htmlFor="email">
+                Correo Electrónico
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="tu@email.com"
+                className="input-field text-xs"
+                required
+              />
+            </div>
+
+            <div>
               <label className="label text-xs" htmlFor="password">
-                Clave Secreta de Administrador
+                Contraseña
               </label>
               <input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Ingresá la contraseña..."
-                className="input-field"
+                placeholder="••••••••••••"
+                className="input-field text-xs"
                 autoFocus
                 required
               />
@@ -184,7 +200,7 @@ export default function AdminDashboard() {
 
             <button type="submit" disabled={isLoggingIn} className="btn-primary w-full justify-center">
               {isLoggingIn ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Shield className="w-4 h-4" />}
-              Acceder al Panel
+              Iniciar Sesión
             </button>
           </form>
         </div>
