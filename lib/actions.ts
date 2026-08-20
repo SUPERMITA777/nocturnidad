@@ -84,9 +84,10 @@ export async function submitSignature(
     "desconocida";
   const userAgent = headersList.get("user-agent") || "desconocido";
 
-  // 4. Escribir en Firestore con DNI como ID (garantía de unicidad)
+  // 4. Escribir en Firestore con DNI como ID (garantía de unicidad) y actualizar contador atómicamente
   const db = getFirestore();
   const docRef = db.collection("firmas").doc(cleanDNI);
+  const counterRef = db.collection("metadata").doc("firmas_counter");
 
   try {
     await db.runTransaction(async (transaction) => {
@@ -114,6 +115,16 @@ export async function submitSignature(
       };
 
       transaction.set(docRef, firmaDoc);
+
+      // Incrementar contador atómico de firmas en metadata
+      transaction.set(
+        counterRef,
+        {
+          count: admin.firestore.FieldValue.increment(1),
+          updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      );
     });
 
     return {

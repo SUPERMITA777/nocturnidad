@@ -1,5 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getFirestore } from "@/lib/firebase-admin";
+import { isAdminAuthenticated } from "@/lib/admin-actions";
+import crypto from "crypto";
+
+function safeCompare(a: string | null | undefined, b: string | null | undefined): boolean {
+  if (!a || !b) return false;
+  try {
+    const bufA = Buffer.from(a);
+    const bufB = Buffer.from(b);
+    if (bufA.length !== bufB.length) return false;
+    return crypto.timingSafeEqual(bufA, bufB);
+  } catch {
+    return false;
+  }
+}
 
 // Cabeceras para el archivo CSV
 const CSV_HEADERS = [
@@ -29,17 +43,21 @@ function escapeCSV(value: string | null | undefined): string {
 }
 
 export async function GET(request: NextRequest) {
-  // ─── Verificación de la clave secreta de administración ────────────────────
+  // ─── Verificación de la autorización (Cookie de Admin O Clave Secreta) ───────
+  const isAuthSession = await isAdminAuthenticated();
+
   const adminKey =
     request.headers.get("x-admin-key") ||
     request.nextUrl.searchParams.get("key");
 
   const expectedKey = process.env.ADMIN_SECRET_KEY;
 
-  if (!expectedKey || adminKey !== expectedKey) {
+  const isKeyValid = expectedKey && safeCompare(adminKey, expectedKey);
+
+  if (!isAuthSession && !isKeyValid) {
     return NextResponse.json(
       {
-        error: "No autorizado. Proveé la clave de administrador correcta.",
+        error: "No autorizado. Proveé la clave de administrador correcta o iniciá sesión.",
       },
       { status: 401 }
     );

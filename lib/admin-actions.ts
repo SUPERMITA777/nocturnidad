@@ -2,8 +2,50 @@
 
 import { cookies } from "next/headers";
 import { getFirestore } from "@/lib/firebase-admin";
+import crypto from "crypto";
 
 const ADMIN_COOKIE_NAME = "admin_auth_token";
+
+// Función auxiliar para generar token HMAC firmado
+function generateSessionToken(secret: string): string {
+  const timestamp = Date.now().toString();
+  const signature = crypto.createHmac("sha256", secret).update(timestamp).digest("hex");
+  return `${timestamp}.${signature}`;
+}
+
+// Función auxiliar para validar token HMAC firmado
+function verifySessionToken(token: string, secret: string): boolean {
+  try {
+    const [timestamp, signature] = token.split(".");
+    if (!timestamp || !signature) return false;
+
+    // Verificar expiración (7 días)
+    const tokenTime = parseInt(timestamp, 10);
+    if (isNaN(tokenTime) || Date.now() - tokenTime > 7 * 24 * 60 * 60 * 1000) {
+      return false;
+    }
+
+    const expectedSignature = crypto.createHmac("sha256", secret).update(timestamp).digest("hex");
+    return crypto.timingSafeEqual(
+      Buffer.from(signature, "hex"),
+      Buffer.from(expectedSignature, "hex")
+    );
+  } catch {
+    return false;
+  }
+}
+
+// Comparación segura contra ataques de temporización
+function safeCompare(a: string, b: string): boolean {
+  try {
+    const bufA = Buffer.from(a);
+    const bufB = Buffer.from(b);
+    if (bufA.length !== bufB.length) return false;
+    return crypto.timingSafeEqual(bufA, bufB);
+  } catch {
+    return false;
+  }
+}
 
 export interface AdminFirma {
   id: string; // DNI
@@ -26,25 +68,32 @@ export async function loginAdmin(
   emailOrPassword: string,
   password?: string
 ): Promise<{ success: boolean; error?: string }> {
-  const expectedKey = process.env.ADMIN_SECRET_KEY || "NocturnidadFV_Admin_2026_Seguro!";
+  const expectedKey = process.env.ADMIN_SECRET_KEY;
+  const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase().trim();
+  const adminPassword = process.env.ADMIN_PASSWORD;
 
-  const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || "emanuel.cotta@gmail.com").toLowerCase().trim();
-  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "SoleyEma2711";
+  if (!expectedKey) {
+    console.error("ADMIN_SECRET_KEY no está configurada en las variables de entorno.");
+    return { success: false, error: "Servicio de administración no configurado en el servidor." };
+  }
 
   let isValid = false;
 
   // Si se pasan ambos (usuario + password)
   if (password !== undefined && password !== "") {
     const inputEmail = emailOrPassword.toLowerCase().trim();
-    if (
-      (inputEmail === ADMIN_EMAIL && password === ADMIN_PASSWORD) ||
-      password === expectedKey
-    ) {
+    if (adminEmail && adminPassword) {
+      if (safeCompare(inputEmail, adminEmail) && safeCompare(password, adminPassword)) {
+        isValid = true;
+      }
+    }
+    // O si la contraseña enviada coincide con la clave maestra
+    if (safeCompare(password, expectedKey)) {
       isValid = true;
     }
   } else {
-    // Si solo se pasó un campo (clave maestra)
-    if (emailOrPassword === expectedKey || emailOrPassword === ADMIN_PASSWORD) {
+    // Si solo se pasó un campo (clave maestra o password)
+    if (safeCompare(emailOrPassword, expectedKey) || (adminPassword && safeCompare(emailOrPassword, adminPassword))) {
       isValid = true;
     }
   }
@@ -53,9 +102,12 @@ export async function loginAdmin(
     return { success: false, error: "Usuario o contraseña de administrador incorrectos." };
   }
 
-  // Guardar cookie de sesión (httpOnly, segura)
+  // Generar token de sesión firmado con HMAC
+  const sessionToken = generateSessionToken(expectedKey);
+
+  // Guardar cookie de sesión (httpOnly, segura, sameSite strict)
   const cookieStore = await cookies();
-  cookieStore.set(ADMIN_COOKIE_NAME, expectedKey, {
+  cookieStore.set(ADMIN_COOKIE_NAME, sessionToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
@@ -79,7 +131,9 @@ export async function isAdminAuthenticated(): Promise<boolean> {
 
   const cookieStore = await cookies();
   const token = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
-  return token === expectedKey;
+  if (!token) return false;
+
+  return verifySessionToken(token, expectedKey);
 }
 
 // Obtener listado de firmas
