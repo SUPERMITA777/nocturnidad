@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   loginAdmin,
   logoutAdmin,
@@ -10,7 +10,7 @@ import {
   deleteAdminFirma,
   type AdminFirma,
 } from "@/lib/admin-actions";
-import { BARRIOS_FLORENCIO_VARELA, ROLES } from "@/lib/schemas";
+import { BARRIOS_FLORENCIO_VARELA, ROLES, PROBLEMAS_IDENTIFICADOS } from "@/lib/schemas";
 import {
   Shield,
   Lock,
@@ -27,6 +27,11 @@ import {
   FileSpreadsheet,
   Users,
   Eye,
+  MessageSquare,
+  BarChart3,
+  ChevronDown,
+  ChevronUp,
+  Lightbulb,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -42,6 +47,8 @@ export default function AdminDashboard() {
   const [search, setSearch] = useState("");
   const [selectedBarrio, setSelectedBarrio] = useState("TODOS");
   const [selectedRol, setSelectedRol] = useState("TODOS");
+  const [selectedPropuestaFilter, setSelectedPropuestaFilter] = useState<"TODOS" | "CON_PROPUESTA">("TODOS");
+  const [showProblemStats, setShowProblemStats] = useState(true);
 
   // Estado para modal de edición
   const [editingFirma, setEditingFirma] = useState<AdminFirma | null>(null);
@@ -126,18 +133,58 @@ export default function AdminDashboard() {
     setSavingEdit(false);
   };
 
+  // Cálculo de estadísticas de problemáticas votadas
+  const problemStats = useMemo(() => {
+    const counts: Record<string, number> = {};
+    PROBLEMAS_IDENTIFICADOS.forEach((p) => {
+      counts[p] = 0;
+    });
+
+    let totalVotos = 0;
+    firmas.forEach((f) => {
+      f.problemasIdentificados?.forEach((p) => {
+        if (counts[p] !== undefined) {
+          counts[p]++;
+        } else {
+          counts[p] = 1;
+        }
+        totalVotos++;
+      });
+    });
+
+    const items = Object.entries(counts)
+      .map(([problema, count]) => ({
+        problema,
+        count,
+        percentage: firmas.length > 0 ? Math.round((count / firmas.length) * 100) : 0,
+      }))
+      .sort((a, b) => b.count - a.count);
+
+    return { items, totalVotos };
+  }, [firmas]);
+
+  // Cantidad de firmas con propuestas o sugerencias de texto
+  const firmasConPropuestaCount = useMemo(() => {
+    return firmas.filter((f) => !!f.propuestaMejora || !!f.sugerenciaArticulado).length;
+  }, [firmas]);
+
   // Filtrar firmas
-  const filteredFirmas = firmas.filter((f) => {
-    const matchesSearch =
-      f.nombreCompleto.toLowerCase().includes(search.toLowerCase()) ||
-      f.dni.includes(search) ||
-      f.email.toLowerCase().includes(search.toLowerCase());
+  const filteredFirmas = useMemo(() => {
+    return firmas.filter((f) => {
+      const matchesSearch =
+        f.nombreCompleto.toLowerCase().includes(search.toLowerCase()) ||
+        f.dni.includes(search) ||
+        f.email.toLowerCase().includes(search.toLowerCase());
 
-    const matchesBarrio = selectedBarrio === "TODOS" || f.barrio === selectedBarrio;
-    const matchesRol = selectedRol === "TODOS" || f.rol === selectedRol;
+      const matchesBarrio = selectedBarrio === "TODOS" || f.barrio === selectedBarrio;
+      const matchesRol = selectedRol === "TODOS" || f.rol === selectedRol;
+      const matchesPropuesta =
+        selectedPropuestaFilter === "TODOS" ||
+        (selectedPropuestaFilter === "CON_PROPUESTA" && (!!f.propuestaMejora || !!f.sugerenciaArticulado));
 
-    return matchesSearch && matchesBarrio && matchesRol;
-  });
+      return matchesSearch && matchesBarrio && matchesRol && matchesPropuesta;
+    });
+  }, [firmas, search, selectedBarrio, selectedRol, selectedPropuestaFilter]);
 
   if (isAuthenticated === null) {
     return (
@@ -274,7 +321,7 @@ export default function AdminDashboard() {
         )}
 
         {/* Métricas rápidas */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div className="card p-5 border border-slate-800 flex items-center gap-4">
             <div className="w-12 h-12 rounded-xl bg-primary-900/40 text-primary-400 flex items-center justify-center">
               <Users className="w-6 h-6" />
@@ -286,19 +333,32 @@ export default function AdminDashboard() {
           </div>
 
           <div className="card p-5 border border-slate-800 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-accent-900/40 text-accent-400 flex items-center justify-center">
-              <FileSpreadsheet className="w-6 h-6" />
+            <div className="w-12 h-12 rounded-xl bg-amber-900/40 text-amber-400 flex items-center justify-center relative">
+              <Lightbulb className="w-6 h-6" />
+              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-amber-500 text-slate-950 font-black text-[11px] flex items-center justify-center">
+                !
+              </span>
             </div>
             <div>
-              <p className="text-slate-400 text-xs font-medium">Resultados Filtrados</p>
-              <p className="text-2xl font-bold text-white">{filteredFirmas.length}</p>
+              <p className="text-slate-400 text-xs font-medium">Con Propuestas / Aportes (!)</p>
+              <p className="text-2xl font-bold text-amber-300">{firmasConPropuestaCount}</p>
+            </div>
+          </div>
+
+          <div className="card p-5 border border-slate-800 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-indigo-900/40 text-indigo-400 flex items-center justify-center">
+              <BarChart3 className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="text-slate-400 text-xs font-medium">Problemáticas Votadas</p>
+              <p className="text-2xl font-bold text-indigo-300">{problemStats.totalVotos}</p>
             </div>
           </div>
 
           <div className="card p-5 border border-slate-800 flex items-center justify-between">
             <div>
-              <p className="text-slate-400 text-xs font-medium">Acciones Rápidas</p>
-              <p className="text-sm font-semibold text-slate-200 mt-1">Recargar Base</p>
+              <p className="text-slate-400 text-xs font-medium">Resultados Filtrados</p>
+              <p className="text-2xl font-bold text-white">{filteredFirmas.length}</p>
             </div>
             <button
               onClick={loadFirmas}
@@ -311,9 +371,64 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        {/* Panel de Estadísticas de Problemáticas Votadas */}
+        <div className="card border border-slate-800 mb-6 p-5">
+          <div
+            className="flex items-center justify-between cursor-pointer select-none"
+            onClick={() => setShowProblemStats(!showProblemStats)}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-indigo-950 border border-indigo-700/50 flex items-center justify-center text-indigo-400">
+                <BarChart3 className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="font-bold text-white text-sm sm:text-base flex items-center gap-2">
+                  Radiografía de Problemáticas Votadas por los Vecinos
+                  <span className="text-xs font-normal text-indigo-400 bg-indigo-950/80 px-2 py-0.5 rounded-full border border-indigo-800/60">
+                    {problemStats.totalVotos} votos totales
+                  </span>
+                </h2>
+                <p className="text-slate-400 text-xs mt-0.5">
+                  Ranking consolidado de las principales urgencias identificadas en Florencio Varela
+                </p>
+              </div>
+            </div>
+            <button className="p-1.5 text-slate-400 hover:text-white rounded-lg">
+              {showProblemStats ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+            </button>
+          </div>
+
+          {showProblemStats && (
+            <div className="mt-5 pt-4 border-t border-slate-800/80 space-y-3.5">
+              {problemStats.items.map((item, idx) => (
+                <div key={item.problema} className="space-y-1.5">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-200 font-medium flex items-center gap-2">
+                      <span className="w-5 h-5 rounded-md bg-slate-800 text-slate-400 text-[10px] font-mono flex items-center justify-center font-bold">
+                        #{idx + 1}
+                      </span>
+                      {item.problema}
+                    </span>
+                    <span className="font-mono text-slate-300 font-semibold flex items-center gap-2 flex-shrink-0 ml-3">
+                      <span className="text-indigo-400">{item.count} votos</span>
+                      <span className="text-slate-500 text-[10px]">({item.percentage}%)</span>
+                    </span>
+                  </div>
+                  <div className="w-full bg-slate-800/70 h-2.5 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-primary-600 via-indigo-500 to-accent-400 rounded-full transition-all duration-500"
+                      style={{ width: `${item.percentage}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         {/* Barra de Filtros y Búsqueda */}
-        <div className="card p-4 border border-slate-800 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center">
-          <div className="relative w-full md:w-80">
+        <div className="card p-4 border border-slate-800 mb-6 flex flex-col lg:flex-row gap-3 justify-between items-center">
+          <div className="relative w-full lg:w-72">
             <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
@@ -324,7 +439,27 @@ export default function AdminDashboard() {
             />
           </div>
 
-          <div className="flex flex-wrap w-full md:w-auto items-center gap-3">
+          <div className="flex flex-wrap w-full lg:w-auto items-center gap-2.5">
+            {/* Filtro por propuestas */}
+            <button
+              onClick={() =>
+                setSelectedPropuestaFilter(
+                  selectedPropuestaFilter === "TODOS" ? "CON_PROPUESTA" : "TODOS"
+                )
+              }
+              className={`px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition border ${
+                selectedPropuestaFilter === "CON_PROPUESTA"
+                  ? "bg-amber-500 text-slate-950 border-amber-400 shadow-md shadow-amber-950"
+                  : "bg-slate-800/80 text-slate-300 border-slate-700 hover:border-amber-500/60"
+              }`}
+              title="Filtrar firmas que tienen sugerencias o propuestas de mejora"
+            >
+              <span className="font-extrabold text-amber-400 bg-amber-950 px-1.5 py-0.2 rounded text-[11px] border border-amber-500/50">
+                !
+              </span>
+              <span>Solo con Propuestas ({firmasConPropuestaCount})</span>
+            </button>
+
             <select
               value={selectedBarrio}
               onChange={(e) => setSelectedBarrio(e.target.value)}
@@ -361,6 +496,7 @@ export default function AdminDashboard() {
                 <tr>
                   <th className="p-4">DNI</th>
                   <th className="p-4">Nombre Completo</th>
+                  <th className="p-4">Aportes / Sugerencias</th>
                   <th className="p-4">Barrio</th>
                   <th className="p-4">Rol</th>
                   <th className="p-4">Contacto</th>
@@ -371,60 +507,83 @@ export default function AdminDashboard() {
               <tbody className="divide-y divide-slate-800/60">
                 {loading ? (
                   <tr>
-                    <td colSpan={7} className="p-8 text-center text-slate-500">
+                    <td colSpan={8} className="p-8 text-center text-slate-500">
                       <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-primary-500" />
                       Cargando firmas registradas...
                     </td>
                   </tr>
                 ) : filteredFirmas.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="p-8 text-center text-slate-500">
+                    <td colSpan={8} className="p-8 text-center text-slate-500">
                       No se encontraron firmas que coincidan con los filtros.
                     </td>
                   </tr>
                 ) : (
-                  filteredFirmas.map((f) => (
-                    <tr key={f.id} className="hover:bg-slate-800/30 transition">
-                      <td className="p-4 font-mono font-semibold text-white">{f.dni}</td>
-                      <td className="p-4 font-medium text-slate-200">{f.nombreCompleto}</td>
-                      <td className="p-4">
-                        <span className="px-2 py-1 bg-slate-800 rounded-md text-slate-300 border border-slate-700/50">
-                          {f.barrio}
-                        </span>
-                      </td>
-                      <td className="p-4">{f.rol}</td>
-                      <td className="p-4">
-                        <div className="text-slate-300">{f.email}</div>
-                        {f.telefono && <div className="text-slate-500 text-[10px] mt-0.5">{f.telefono}</div>}
-                      </td>
-                      <td className="p-4 text-slate-400">
-                        {f.createdAt ? new Date(f.createdAt).toLocaleDateString("es-AR") : "-"}
-                      </td>
-                      <td className="p-4 text-right space-x-2">
-                        <button
-                          onClick={() => setViewingFirma(f)}
-                          className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition"
-                          title="Ver detalle completo"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={() => setEditingFirma({ ...f })}
-                          className="p-1.5 bg-primary-950/60 border border-primary-800/60 hover:bg-primary-900 text-primary-300 rounded-lg transition"
-                          title="Editar firma"
-                        >
-                          <Edit2 className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(f)}
-                          className="p-1.5 bg-red-950/60 border border-red-800/60 hover:bg-red-900 text-red-300 rounded-lg transition"
-                          title="Eliminar firma"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
+                  filteredFirmas.map((f) => {
+                    const hasPropuesta = !!f.propuestaMejora || !!f.sugerenciaArticulado;
+                    return (
+                      <tr key={f.id} className={`transition ${hasPropuesta ? "bg-amber-950/10 hover:bg-amber-950/20" : "hover:bg-slate-800/30"}`}>
+                        <td className="p-4 font-mono font-semibold text-white">{f.dni}</td>
+                        <td className="p-4 font-medium text-slate-200">
+                          <div className="flex items-center gap-2">
+                            <span>{f.nombreCompleto}</span>
+                          </div>
+                        </td>
+                        <td className="p-4">
+                          {hasPropuesta ? (
+                            <button
+                              onClick={() => setViewingFirma(f)}
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/50 hover:bg-amber-500/30 transition cursor-pointer"
+                              title="Ver texto de la propuesta o sugerencia"
+                            >
+                              <span className="w-4 h-4 rounded-full bg-amber-500 text-slate-950 text-[11px] font-black flex items-center justify-center">
+                                !
+                              </span>
+                              <span>Con Aporte</span>
+                            </button>
+                          ) : (
+                            <span className="text-slate-600 text-[11px]">Sin texto</span>
+                          )}
+                        </td>
+                        <td className="p-4">
+                          <span className="px-2 py-1 bg-slate-800 rounded-md text-slate-300 border border-slate-700/50">
+                            {f.barrio}
+                          </span>
+                        </td>
+                        <td className="p-4">{f.rol}</td>
+                        <td className="p-4">
+                          <div className="text-slate-300">{f.email}</div>
+                          {f.telefono && <div className="text-slate-500 text-[10px] mt-0.5">{f.telefono}</div>}
+                        </td>
+                        <td className="p-4 text-slate-400">
+                          {f.createdAt ? new Date(f.createdAt).toLocaleDateString("es-AR") : "-"}
+                        </td>
+                        <td className="p-4 text-right space-x-2">
+                          <button
+                            onClick={() => setViewingFirma(f)}
+                            className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition"
+                            title="Ver detalle completo"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => setEditingFirma({ ...f })}
+                            className="p-1.5 bg-primary-950/60 border border-primary-800/60 hover:bg-primary-900 text-primary-300 rounded-lg transition"
+                            title="Editar firma"
+                          >
+                            <Edit2 className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(f)}
+                            className="p-1.5 bg-red-950/60 border border-red-800/60 hover:bg-red-900 text-red-300 rounded-lg transition"
+                            title="Eliminar firma"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>
