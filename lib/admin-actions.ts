@@ -63,28 +63,53 @@ export interface AdminFirma {
   createdAt?: string | null;
 }
 
+function getAdminUsers(): Array<{ email: string; password: string }> {
+  const list: Array<{ email: string; password: string }> = [];
+
+  // Usuario Principal
+  const adminEmail = (process.env.ADMIN_EMAIL || "emanuel.cotta@gmail.com").toLowerCase().trim();
+  const adminPassword = process.env.ADMIN_PASSWORD || "SoleyEma2711";
+  list.push({ email: adminEmail, password: adminPassword });
+
+  // Usuario Admin 2 (Cristian Caram)
+  const admin2Email = (process.env.ADMIN_USER_2_EMAIL || "cristiancaram19@hotmail.com").toLowerCase().trim();
+  const admin2Password = process.env.ADMIN_USER_2_PASSWORD || "1929";
+  list.push({ email: admin2Email, password: admin2Password });
+
+  // Soporte para JSON dinámico en env ADMIN_USERS_JSON='[{"email":"...","password":"..."}]'
+  if (process.env.ADMIN_USERS_JSON) {
+    try {
+      const parsed = JSON.parse(process.env.ADMIN_USERS_JSON);
+      if (Array.isArray(parsed)) {
+        parsed.forEach((u) => {
+          if (u.email && u.password) {
+            list.push({ email: String(u.email).toLowerCase().trim(), password: String(u.password) });
+          }
+        });
+      }
+    } catch {}
+  }
+
+  return list;
+}
+
 // Verificar credenciales de admin (email + password) o clave secreta directa
 export async function loginAdmin(
   emailOrPassword: string,
   password?: string
 ): Promise<{ success: boolean; error?: string }> {
-  const expectedKey = process.env.ADMIN_SECRET_KEY;
-  const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase().trim();
-  const adminPassword = process.env.ADMIN_PASSWORD;
-
-  if (!expectedKey) {
-    console.error("ADMIN_SECRET_KEY no está configurada en las variables de entorno.");
-    return { success: false, error: "Servicio de administración no configurado en el servidor." };
-  }
+  const expectedKey = process.env.ADMIN_SECRET_KEY || "NocturnidadFV_Admin_2026_Seguro!";
 
   let isValid = false;
+  const adminUsers = getAdminUsers();
 
   // Si se pasan ambos (usuario + password)
   if (password !== undefined && password !== "") {
     const inputEmail = emailOrPassword.toLowerCase().trim();
-    if (adminEmail && adminPassword) {
-      if (safeCompare(inputEmail, adminEmail) && safeCompare(password, adminPassword)) {
+    for (const user of adminUsers) {
+      if (safeCompare(inputEmail, user.email) && safeCompare(password, user.password)) {
         isValid = true;
+        break;
       }
     }
     // O si la contraseña enviada coincide con la clave maestra
@@ -92,8 +117,14 @@ export async function loginAdmin(
       isValid = true;
     }
   } else {
-    // Si solo se pasó un campo (clave maestra o password)
-    if (safeCompare(emailOrPassword, expectedKey) || (adminPassword && safeCompare(emailOrPassword, adminPassword))) {
+    // Si solo se pasó un campo (clave maestra o password de alguno de los admins)
+    for (const user of adminUsers) {
+      if (safeCompare(emailOrPassword, user.password)) {
+        isValid = true;
+        break;
+      }
+    }
+    if (safeCompare(emailOrPassword, expectedKey)) {
       isValid = true;
     }
   }
