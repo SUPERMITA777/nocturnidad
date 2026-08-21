@@ -22,47 +22,46 @@ export default function ImprimirPlanillaPage() {
           Volver a la Landing
         </Link>
         <div className="flex items-center gap-3">
-          <span className="text-xs text-slate-400 hidden sm:inline">Formato optimizado A4 vertical</span>
+          <span className="text-xs text-slate-400 hidden sm:inline">Formato optimizado A4 vertical (15 firmas por hoja)</span>
           <button
             onClick={() => window.print()}
             className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-xs rounded-lg flex items-center gap-2 transition"
           >
             <Printer className="w-4 h-4" />
-            Imprimir Planilla
+            Imprimir Planilla A4
           </button>
         </div>
       </div>
 
       {/* Contenedor A4 */}
       <div className="max-w-[210mm] mx-auto p-4 sm:p-8 bg-white print:p-0 print:max-w-none">
-        {/* Encabezado */}
+        {/* Encabezado Institucional */}
         <div className="flex justify-between items-center border-b-2 border-black pb-2 mb-2">
-          <div className="flex-1 pr-4">
-            <h1 className="text-base font-extrabold tracking-wide uppercase m-0 leading-tight">
-              Iniciativa Ciudadana — Nocturnidad Segura
+          <div className="flex-1 pr-3">
+            <h1 className="text-sm sm:text-base font-extrabold tracking-wide uppercase m-0 leading-tight">
+              Iniciativa Ciudadana — Nocturnidad Segura, Usos Mixtos y Trabajo Local
             </h1>
-            <h2 className="text-xs font-bold text-slate-800 m-0 mt-1">
-              Honorable Concejo Deliberante de Florencio Varela (Ord. 10.329/23 y 442/77)
+            <h2 className="text-[11px] font-bold text-slate-800 m-0 mt-1 leading-snug">
+              Proyecto de Reforma de las Ordenanzas N.º 10.329/23 (Régimen de Actividades Nocturnas), Decreto N.º 1.111/23 y Ordenanza N.º 442/77 (Código de Faltas - Art. 37) ante el Honorable Concejo Deliberante de Florencio Varela
             </h2>
-            <p className="text-[10px] text-slate-700 m-0 mt-1 leading-snug">
-              Los abajo firmantes, vecinos, comerciantes y trabajadores de Florencio Varela, respaldamos el Proyecto de Ordenanza
-              para regularizar la nocturnidad, erradicar la clandestinidad, fijar medidas de seguridad y descanso vecinal, y defender el empleo formal local.
+            <p className="text-[9.5px] text-slate-700 m-0 mt-1 leading-tight">
+              Los abajo firmantes, vecinos, comerciantes, gastronómicos y trabajadores de Florencio Varela, respaldamos el Proyecto de Ordenanza para regularizar la nocturnidad y usos mixtos, erradicar la clandestinidad, fijar medidas preventivas de seguridad, garantizar el descanso vecinal y defender el empleo formal local.
             </p>
           </div>
-          <div className="text-center w-[90px] flex-shrink-0">
+          <div className="text-center w-[95px] flex-shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://nocturnidad.vercel.app/"
+              src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://nocturnidad.vercel.app/"
               alt="QR Proyecto"
               className="w-16 h-16 mx-auto block"
             />
-            <span className="text-[8px] font-bold block mt-1 text-slate-900 leading-tight">
-              Escaneá para leer el proyecto
+            <span className="text-[7.5px] font-bold block mt-1 text-slate-900 leading-tight">
+              Escaneá para leer el proyecto completo
             </span>
           </div>
         </div>
 
-        {/* Tabla de 15 filas */}
+        {/* Tabla de 15 filas optimizada para escritura manual */}
         <table className="w-full border-collapse mt-2 border border-slate-700">
           <thead>
             <tr className="bg-slate-100 border border-slate-700">
@@ -90,9 +89,9 @@ export default function ImprimirPlanillaPage() {
           </tbody>
         </table>
 
-        {/* Pie de página */}
+        {/* Pie de página con foliado */}
         <div className="mt-3 text-[9px] text-slate-600 flex justify-between border-t border-slate-400 pt-1.5">
-          <span>Planilla de adhesión vecinal — Presentación legislativa HCD Florencio Varela</span>
+          <span>Planilla Oficial de Adhesión Vecinal — Presentación Legislativa HCD Florencio Varela</span>
           <span>Folio N.º: _______ / Hoja N.º: _______</span>
         </div>
       </div>
