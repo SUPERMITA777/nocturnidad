@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { Menu, X, Moon, Shield, Printer } from "lucide-react";
 import Link from "next/link";
