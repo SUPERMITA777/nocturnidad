@@ -63,6 +63,9 @@ export default function PetitionForm() {
         setStatus("success");
         setServerMessage(result.message);
         reset();
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("firmaRegistrada"));
+        }
       } else {
         setStatus("error");
         setServerMessage(result.error);

@@ -7,8 +7,9 @@ import PetitionForm from "@/components/PetitionForm";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 
-// Revalidar cada 60 segundos para reflejar nuevas firmas y cambios en el proyecto
-export const revalidate = 60;
+// Renderizado dinámico para reflejar siempre el conteo de firmas en tiempo real
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function Home() {
   const [count, proyecto] = await Promise.all([

@@ -56,15 +56,28 @@ export default function Hero({ initialCount, metaFirmas = 5000 }: HeroProps) {
 
   useEffect(() => {
     setCurrentCount(initialCount);
-    // Refresco en vivo del conteo
-    fetch("/api/signature-count")
-      .then((res) => res.json())
-      .then((data) => {
-        if (typeof data.count === "number") {
-          setCurrentCount(data.count);
-        }
-      })
-      .catch(() => {});
+    // Refresco en vivo del conteo sin caché
+    const fetchLiveCount = () => {
+      fetch(`/api/signature-count?_t=${Date.now()}`, { cache: "no-store" })
+        .then((res) => res.json())
+        .then((data) => {
+          if (typeof data.count === "number" && data.count > 0) {
+            setCurrentCount(data.count);
+          }
+        })
+        .catch(() => {});
+    };
+
+    fetchLiveCount();
+
+    const handleFirmaAdded = () => {
+      fetchLiveCount();
+    };
+    window.addEventListener("firmaRegistrada", handleFirmaAdded);
+
+    return () => {
+      window.removeEventListener("firmaRegistrada", handleFirmaAdded);
+    };
   }, [initialCount]);
 
   const scrollTo = (id: string) => {
