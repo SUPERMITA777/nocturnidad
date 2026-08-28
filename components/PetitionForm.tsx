@@ -437,7 +437,7 @@ export default function PetitionForm() {
                   Declaración Jurada y Adhesión Ciudadana <span className="text-red-400">*</span>
                 </p>
                 <p className="text-slate-300 text-xs mt-1.5 leading-relaxed bg-slate-800/40 p-3 rounded-lg border border-slate-700/50">
-                  "Doy mi conformidad para que mis datos integren el petitorio y respaldo ciudadano al Proyecto de Ordenanza Modificatoria de las Ordenanzas N.º 10.329/23 y N.º 442/77 a presentarse ante el Honorable Concejo Deliberante de Florencio Varela."
+                  "Doy mi conformidad para que mis datos integren el petitorio y respaldo ciudadano al Proyecto de Ordenanza Modificatoria de la Ordenanza N.º 10.339/23 a presentarse ante el Honorable Concejo Deliberante de Florencio Varela."
                 </p>
                 {errors.consentimientoLegal && (
                   <p className="error-msg mt-1">

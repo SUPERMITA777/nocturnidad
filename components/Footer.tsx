@@ -21,9 +21,9 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-slate-500 text-xs leading-relaxed">
-              Iniciativa ciudadana para la reforma del Código de Faltas
-              Municipal (Ord. 442/77) orientada a una nocturnidad regulada,
-              segura y con trabajo local.
+              Iniciativa ciudadana para la modificación de la Ordenanza
+              Municipal N.º 10.339/23 para el reconocimiento de Establecimientos de
+              Usos Mixtos y Espacios Culturales/Gastronómicos en Florencio Varela.
             </p>
           </div>
 
@@ -33,9 +33,9 @@ export default function Footer() {
               Marco Legal
             </h4>
             <ul className="space-y-2 text-slate-500 text-xs">
-              <li>Ordenanza Municipal 442/77 — Código de Faltas</li>
-              <li>Ley Provincial 14.050 (Buenos Aires)</li>
-              <li>Ley Nacional 25.326 — Protección de Datos Personales</li>
+              <li>Ordenanza Municipal N.º 10.339/23</li>
+              <li>Ley Provincial N.º 14.050 (texto actualizado)</li>
+              <li>Ley Nacional N.º 25.326 — Protección de Datos Personales</li>
               <li>Reglamento Interno HCD — Florencio Varela</li>
             </ul>
           </div>

@@ -9,12 +9,12 @@ const faqs = [
     a: "El Honorable Concejo Deliberante requiere que las peticiones ciudadanas sean avaladas por vecinos reales y verificables del partido. El DNI nos permite validar que cada adhesión corresponde a una persona real y evitar duplicados. Tu número de DNI se utiliza únicamente como identificador único y es tratado con la máxima confidencialidad conforme a la Ley 25.326 de Protección de Datos Personales.",
   },
   {
-    q: "¿Qué busca cambiar este proyecto frente a las fiestas clandestinas?",
-    a: "La Ordenanza 442/77, sancionada en 1977, impone restricciones de horario y condiciones tan rigurosas que muchos organizadores y comerciantes optan por la informalidad. Este proyecto no promueve la 'desregulación', sino todo lo contrario: crea un Régimen de Espacios Seguros (RESAN) con requisitos concretos y verificables —habilitación, salidas de emergencia, control de menores, seguridad registrada— para que la actividad nocturna pueda existir dentro del marco legal, bajo fiscalización municipal.",
+    q: "¿Qué busca resolver este proyecto de modificación de la Ordenanza N.º 10.339/23?",
+    a: "Actualmente la Ordenanza N.º 10.339/23 regula de manera específica las actividades bailables. Sin embargo, numerosos locales gastronómicos y comerciales realizan actividades culturales, talleres, música en vivo, peñas o catas sin ser boliches. Este proyecto crea la categoría de 'Establecimientos de Usos Mixtos y Espacios Culturales/Gastronómicos' para darles un marco normativo claro, sin exigirles una nueva habilitación autónoma ni aplicarles tasas desmedidas que pongan en riesgo su subsistencia.",
   },
   {
-    q: "¿Cómo beneficia a los trabajadores y comercios locales?",
-    a: "El desplazamiento de la actividad nocturna hacia quintas y galpones fuera del ejido urbano ha generado la pérdida de cientos de empleos registrados: mozos, barmans, técnicos de sonido e iluminación, productores, artistas locales, personal de seguridad habilitado y empleados de bares y restaurantes. Al crear un marco legal viable, el proyecto busca reactivar la economía nocturna dentro del partido, generando empleo formal y recaudación municipal.",
+    q: "¿Cómo beneficia a los comercios, artistas y trabajadores locales?",
+    a: "Permite a los locales gastronómicos habilitados organizar espectáculos en vivo, stand up, peñas, milongas, catas y talleres formativos de manera complementaria a su actividad principal. Esto fomenta el empleo local para músicos, técnicos, mozos y docentes artísticos, dinamiza la economía comunitaria y garantiza el respeto por los aforos, normas de seguridad y convivencia acústica.",
   },
   {
     q: "¿Mis datos personales son seguros?",

@@ -39,13 +39,13 @@ export default function ImprimirPlanillaPage() {
         <div className="flex justify-between items-center border-b-2 border-black pb-1.5 mb-1.5">
           <div className="flex-1 pr-3">
             <h1 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase m-0 leading-tight">
-              Iniciativa Ciudadana — Nocturnidad Segura, Usos Mixtos y Trabajo Local
+              Iniciativa Ciudadana — Establecimientos de Usos Mixtos y Espacios Culturales / Gastronómicos
             </h1>
             <h2 className="text-[10px] font-bold text-slate-800 m-0 mt-0.5 leading-snug">
-              Proyecto de Reforma de las Ordenanzas N.º 10.329/23, Decreto N.º 1.111/23 y Ordenanza N.º 442/77 (Art. 37) ante el HCD de Florencio Varela
+              Proyecto de Modificación de la Ordenanza N.º 10.339/23 ante el HCD de Florencio Varela
             </h2>
             <p className="text-[8.5px] text-slate-700 m-0 mt-0.5 leading-tight">
-              Los abajo firmantes, vecinos, comerciantes y trabajadores de Florencio Varela, respaldamos el Proyecto de Ordenanza para regularizar la nocturnidad y usos mixtos, erradicar la clandestinidad, fijar seguridad preventiva, descanso vecinal y defender el empleo formal local.
+              Los abajo firmantes, vecinos, comerciantes y trabajadores de Florencio Varela, respaldamos el Proyecto de Modificación de la Ordenanza N.º 10.339/23 para el reconocimiento de Establecimientos de Usos Mixtos y Espacios Culturales/Gastronómicos, fomento de actividades culturales y formativas, trabajo local y convivencia urbana.
             </p>
           </div>
           <div className="text-center w-[85px] flex-shrink-0">

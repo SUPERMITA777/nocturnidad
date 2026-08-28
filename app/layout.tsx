@@ -4,23 +4,24 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Nocturnidad Segura - Florencio Varela | Proyecto de Ordenanza",
   description:
-    "Sumá tu firma al proyecto de reforma del Código de Faltas (Ord. 442/77) para terminar con la clandestinidad, cuidar a los jóvenes y formalizar la actividad comercial y cultural nocturna en Florencio Varela.",
+    "Sumá tu firma al proyecto de modificación de la Ordenanza N.º 10.339/23 para reconocer los Establecimientos de Usos Mixtos y Espacios Culturales/Gastronómicos, impulsar la cultura, gastronomía y el trabajo local en Florencio Varela.",
   keywords: [
     "Florencio Varela",
     "nocturnidad",
-    "ordenanza",
-    "reforma",
+    "ordenanza 10.339/23",
+    "usos mixtos",
+    "espacios culturales",
+    "gastronomia",
+    "musica en vivo",
     "participación ciudadana",
     "HCD",
     "Concejo Deliberante",
-    "fiestas clandestinas",
     "trabajo local",
-    "seguridad nocturna",
   ],
   openGraph: {
-    title: "Nocturnidad Segura en Florencio Varela",
+    title: "Nocturnidad Segura y Espacios de Usos Mixtos en Florencio Varela",
     description:
-      "Sumate al proyecto de reforma para una nocturnidad regulada, segura y con trabajo local.",
+      "Sumate al proyecto de modificación de la Ordenanza N.º 10.339/23 para el reconocimiento de Establecimientos de Usos Mixtos y Espacios Culturales/Gastronómicos.",
     type: "website",
     locale: "es_AR",
   },

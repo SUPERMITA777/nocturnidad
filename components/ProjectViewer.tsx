@@ -197,7 +197,7 @@ export default function ProjectViewer({ proyecto }: { proyecto: ProyectoLey }) {
                     <div>
                       <p className="font-semibold text-white text-sm">Planilla Oficial de Firmas — Formato HCD</p>
                       <p className="text-slate-400 text-sm mt-1 leading-relaxed">
-                        Planilla A4 lista para imprimir con 15 filas por hoja. Incluye encabezado con referencia a las Ordenanzas 10.329/23 y 442/77,
+                        Planilla A4 lista para imprimir con 20 filas por hoja. Incluye encabezado con referencia a la Ordenanza N.º 10.339/23,
                         código QR al proyecto online, y espacio foliado para presentación legislativa.
                       </p>
                     </div>

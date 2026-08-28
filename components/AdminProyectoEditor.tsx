@@ -225,7 +225,7 @@ export default function AdminProyectoEditor() {
             </Link>
             <div>
               <h1 className="font-bold text-sm sm:text-base text-white">Editor del Articulado y Considerandos</h1>
-              <p className="text-slate-400 text-xs">Ord. 10.329/23 y Ord. 442/77</p>
+              <p className="text-slate-400 text-xs">Modificación Ord. N.º 10.339/23</p>
             </div>
           </div>
 

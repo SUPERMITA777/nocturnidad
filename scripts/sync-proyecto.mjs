@@ -40,5 +40,5 @@ await db.collection("configuracion").doc("proyecto_ley").set({
   ultimaActualizacion: admin.firestore.FieldValue.serverTimestamp(),
 });
 
-console.log("✅ Proyecto de Ley actualizado exitosamente con los 22 artículos y 10 capítulos en Firestore.");
+console.log("✅ Proyecto de Ordenanza (Modificación Ord. 10.339/23) sincronizado exitosamente en Firestore.");
 process.exit(0);

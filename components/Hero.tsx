@@ -128,25 +128,25 @@ export default function Hero({ initialCount, metaFirmas = 5000 }: HeroProps) {
 
         {/* Bajada explicativa */}
         <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto mb-6 animate-fade-in-up animate-delay-200">
-          Iniciativa ciudadana para reformar las{" "}
-          <strong className="text-white font-semibold">Ordenanzas N.º 10.329/23 y N.º 442/77</strong>.
-          Proponemos terminar con la clandestinidad, cuidar a los jóvenes, garantizar el descanso vecinal
-          y defender el empleo formal de gastronómicos, técnicos y artistas.
+          Iniciativa ciudadana para modificar la{" "}
+          <strong className="text-white font-semibold">Ordenanza Municipal N.º 10.339/23</strong>.
+          Proponemos reconocer los <strong className="text-white font-semibold">Establecimientos de Usos Mixtos y Espacios Culturales/Gastronómicos</strong>,
+          habilitar actividades artísticas y formativas sin trabas burocráticas, y promover el desarrollo cultural y el trabajo local en Florencio Varela.
         </p>
 
         {/* Badges Normativos Visibles */}
         <div className="flex flex-wrap justify-center gap-2.5 mb-10 animate-fade-in-up animate-delay-200">
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-950/80 border border-primary-700/60 rounded-lg text-primary-300 text-xs font-semibold shadow-sm">
             <FileCheck className="w-3.5 h-3.5" />
-            Reforma Ord. 10.329/23
+            Modificación Ord. 10.339/23
           </span>
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-950/80 border border-amber-700/60 rounded-lg text-amber-300 text-xs font-semibold shadow-sm">
             <FileCheck className="w-3.5 h-3.5" />
-            Modificación Código de Faltas 442/77
+            Espacios de Usos Mixtos
           </span>
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-950/80 border border-emerald-700/60 rounded-lg text-emerald-300 text-xs font-semibold shadow-sm">
             <FileCheck className="w-3.5 h-3.5" />
-            Adecuación Ley 14.050
+            Cultura, Gastronomía y Convivencia
           </span>
         </div>
 
